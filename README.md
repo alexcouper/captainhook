@@ -1,0 +1,4 @@
+captainhook
+===========
+
+Git hook scripts
