@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# # # # # # # # # # # # # #
+# CAPTAINHOOK IDENTIFIER  #
+# # # # # # # # # # # # # #
 """
 A pre commit hook for git.
 

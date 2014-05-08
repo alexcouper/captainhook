@@ -15,6 +15,14 @@ def get_git_location(folder):
         return get_git_location(os.path.dirname(folder))
 
 
+def is_captain_hook_script(filepath):
+    "Check to see if the given filepath is a captain hook owned script"
+    with open(filepath, 'r') as script:
+        if "CAPTAINHOOK IDENTIFIER" in script.read():
+            return True
+    return False
+
+
 def install_pre_commit_hook():
     git_location = get_git_location(os.getcwd())
     if not git_location:
@@ -30,9 +38,12 @@ def install_pre_commit_hook():
         'pre-commit'
         )
     if os.path.exists(pre_commit_destination):
-        print(
-            "There is already something at {}. Move it and try again.".format(
-                pre_commit_destination))
+        if is_captain_hook_script(pre_commit_destination):
+            print "Overriding existing captainhook script at {}".format(
+                pre_commit_destination)
+        else:
+            print("There is already something at {}. "
+                  "Move it and try again.".format(pre_commit_destination))
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))
 
