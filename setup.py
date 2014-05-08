@@ -6,7 +6,7 @@ long_description = open('README.md').read()
 setup(
     name='captainhook',
     description='A collection of git commit hooks',
-    version='0.3',
+    version='0.4',
     long_description=long_description,
     author='Alex Couper',
     author_email='info@alexcouper.com',
