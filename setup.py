@@ -12,9 +12,6 @@ setup(
     author_email='info@alexcouper.com',
     url='https://github.com/alexcouper/captainhook',
     zip_safe=False,
-    package_data={
-        '': ['*.txt', '*.rst', '*.md'],
-    },
     scripts=[
         'scripts/captainhook'
     ],
