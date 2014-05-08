@@ -36,8 +36,8 @@ class bash(object):
         self.bash(cmd)
 
     def bash(self, cmd):
-        self.p = Popen(cmd, shell=True, stdout=PIPE, stdin=PIPE)
-        self.output, err = self.p.communicate(input=self.output)
+        self.p = Popen(cmd, shell=True, stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        self.output, self.err = self.p.communicate(input=self.output)
         return self
 
     def __str__(self):
@@ -86,7 +86,13 @@ def flake8():
     py_files = str(python_files_for_commit())
     if not py_files:
         return
-    return bash("flake8 {0}".format(py_files.replace('\n', ' ')))
+    b = bash("flake8 {0}".format(py_files.replace('\n', ' ')))
+    if b.err:
+        if "command not found" in b.err:
+            return (
+                "flake8 is required for the flake8 plugin.\n"
+                "`pip install flake8` or turn it off in your tox.ini file.")
+    return b
 
 
 def changes_to_stash():
