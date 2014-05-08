@@ -29,6 +29,10 @@ def install_pre_commit_hook():
         'hooks',
         'pre-commit'
         )
+    if os.path.exists(pre_commit_destination):
+        print(
+            "There is already something at {}. Move it and try again.".format(
+                pre_commit_destination))
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))
 
