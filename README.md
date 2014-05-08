@@ -18,8 +18,11 @@ Installation
 
 ``pip install captainhook``
 
-Note that this does not install anything into your virtualenv, but installs
-a script as your current .git/hooks/pre-commit
+Once installed into your environment, you will be able to run
+
+``captainhook``
+
+from within any git repo, and the pre-commit hook will be installed.
 
 Setting Up
 ----------

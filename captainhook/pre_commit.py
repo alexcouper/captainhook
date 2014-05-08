@@ -16,7 +16,7 @@ To add a new check:
 """
 import ConfigParser
 from contextlib import contextmanager
-import importlib
+import os.path
 import sys
 from subprocess import Popen, PIPE
 
@@ -118,12 +118,14 @@ def get_hook_checks():
     Return an empty dict if none are set.
     """
     config = ConfigParser.ConfigParser()
-    config.readfp(open('tox.ini'))
-    if config.has_section('captainhook'):
-        return {
-            key: value for key, value in config.items('captainhook')
-        }
+    if os.path.exists('tox.ini'):
+        config.readfp(open('tox.ini'))
+        if config.has_section('captainhook'):
+            return {
+                key: value for key, value in config.items('captainhook')
+            }
     return {}
+
 
 def get_check_function(check_name):
     """
