@@ -49,7 +49,8 @@ Currently supported checks are
     - pdb: Checks to see if there are any uncommented
       ``import pdb; pdb.set_trace()`` statements in the code to be committed.
     - flake8: Runs flake8 against the files that are set to be committed.
-
+    - python3: Checks to see if python files set to be committed are python3
+      compatible.
 
 Output
 ------
@@ -59,6 +60,13 @@ You only see output for checks that fail, otherwise silence.
 Example output upon a rejected commit::
 
 
+    ===============================================================================
+    Checking python3
+    ===============================================================================
+      File "captainhook/pre_commit.py", line 77
+        print 'a'
+                ^
+    SyntaxError: invalid syntax
     ===============================================================================
     Checking flake8
     ===============================================================================

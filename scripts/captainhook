@@ -28,7 +28,7 @@ def install_pre_commit_hook():
     if not git_location:
         print("You need to be in a git repo to install this.")
         sys.exit(1)
-    print "Installing pre_commit.py to {0}".format(git_location)
+    print("Installing pre_commit.py to {0}".format(git_location))
     pre_commit_path = os.path.join(
         os.path.dirname(captainhook.__file__),
         'pre_commit.py')
@@ -39,10 +39,10 @@ def install_pre_commit_hook():
         )
     if os.path.exists(pre_commit_destination):
         if is_captain_hook_script(pre_commit_destination):
-            print "Overriding existing captainhook script at {}".format(
-                pre_commit_destination)
+            print("Overriding existing captainhook script at {0}".format(
+                pre_commit_destination))
         else:
-            print("There is already something at {}. "
+            print("There is already something at {0}. "
                   "Move it and try again.".format(pre_commit_destination))
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))

@@ -17,7 +17,12 @@ To add a new check:
        with 'on' (run this check) or 'off' (don't). The default behaviour is to
        run all checks defined in ``CHECKS``.
 """
-import ConfigParser
+try:
+    import ConfigParser as configparser
+except ImportError:
+    # python 3
+    import configparser
+
 from contextlib import contextmanager
 import os.path
 import sys
@@ -41,7 +46,7 @@ class bash(object):
         return self
 
     def __str__(self):
-        return self.output.strip()
+        return self.output.strip().decode(encoding='UTF-8')
 
     def __nonzero__(self):
         return bool(str(self))
@@ -50,9 +55,9 @@ class bash(object):
 def title_print(msg):
     "Pretty print a title bar."
     bar = '=' * 79
-    print bar
-    print msg
-    print bar
+    print(bar)
+    print(msg)
+    print(bar)
 
 
 def python_files_for_commit():
@@ -64,6 +69,17 @@ def python_files_for_commit():
         "grep -v -E '^D' | "
         "awk '{{ print ( $(NF) ) }}' "
     ).format(files_pattern=files_pattern))
+
+
+def python3():
+    "Check to see if python files are py3 compatible"
+    py_files = str(python_files_for_commit())
+    errors = []
+    for py_file in py_files.splitlines():
+        b = bash('python3 -m py_compile {0}'.format(py_file))
+        if b.err:
+            errors.append(b.err)
+    return "\n".join(errors)
 
 
 def pdb():
@@ -126,7 +142,7 @@ def get_hook_checks():
 
     Return an empty dict if none are set.
     """
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     if os.path.exists('tox.ini'):
         config.readfp(open('tox.ini'))
         if config.has_section('captainhook'):
@@ -145,9 +161,9 @@ def get_check_function(check_name):
     try:
         return globals()[check_name]
     except KeyError:
-        print "TODO: Implement importing of extensions."
+        print("TODO: Implement importing of extensions.")
 
-CHECKS = (pdb, flake8)
+CHECKS = (pdb, flake8, python3)
 
 
 def main(stash):
