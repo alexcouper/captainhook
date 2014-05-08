@@ -16,24 +16,29 @@ to be committed and rejects the commit if any of the checks fail.
 Installation
 ------------
 
-``pip install captainhook``
+Install using pip::
 
-Note that this does not install anything into your virtualenv, but installs
-a script as your current .git/hooks/pre-commit
+    pip install captainhook
+
+Once installed into your environment, you will be able to run::
+
+    captainhook
+
+from within any git repo, and the pre-commit hook will be installed.
 
 Setting Up
 ----------
 
-By default, all hooks are off. To turn on a hook, create a ``tox.ini`` file
+By default, all hooks are on. To turn off a hook, create a ``tox.ini`` file
 in the base directory of your project with a ``captainhook`` section.
 
-eg.
+eg::
 
-```
-[captainhook]
-flake8=on
-pdb=on
-```
+
+    [captainhook]
+    flake8=off
+    pdb=off
+
 
 
 Checks
@@ -52,17 +57,18 @@ Output
 You only see output for checks that fail, otherwise silence.
 
 Example output upon a rejected commit::
-```
-===============================================================================
-Checking flake8
-===============================================================================
-pre-commit.py:19:1: F401 'importlib' imported but unused
-pre-commit.py:128:1: E302 expected 2 blank lines, found 1
-setup.py:25:80: E501 line too long (89 > 79 characters)
-===============================================================================
-Rejecting commit
-===============================================================================
-```
+
+
+    ===============================================================================
+    Checking flake8
+    ===============================================================================
+    pre-commit.py:19:1: F401 'importlib' imported but unused
+    pre-commit.py:128:1: E302 expected 2 blank lines, found 1
+    setup.py:25:80: E501 line too long (89 > 79 characters)
+    ===============================================================================
+    Rejecting commit
+    ===============================================================================
+
 
 
 Developing
@@ -71,6 +77,6 @@ Developing
 Running pre-commit.py on its own will by default cause a ``git stash`` to take
 place which you probably don't want when testing a new check.
 
-You can run the script without performing such a stash using:
+You can run the script without performing such a stash using::
 
-    ``python pre-commit.py -n``
+    python pre-commit.py -n
