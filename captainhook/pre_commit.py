@@ -12,10 +12,10 @@ To add a new check:
 
     1. Create a function that returns a true like, printable object for
        failure, or ``None`` for success.
-    2. Add that function to ``CHECKS``.
+    2. Add that function to ``captainhook.checkers.ALL_CHECKS``.
     3. Add a corresponding line (the name of the function) to your tox.ini file
        with 'on' (run this check) or 'off' (don't). The default behaviour is to
-       run all checks defined in ``CHECKS``.
+       run all checks defined in ``ALL_CHECKS``.
 """
 try:
     import ConfigParser as configparser
