@@ -27,7 +27,7 @@ from contextlib import contextmanager
 import os.path
 import sys
 
-from captainhook.checkers.python3 import python3
+from captainhook.checkers import ALL_CHECKS
 from captainhook.utils import bash, python_files_for_commit
 
 
@@ -120,7 +120,7 @@ def get_check_function(check_name):
     except KeyError:
         print("TODO: Implement importing of extensions.")
 
-CHECKS = (pdb, flake8, python3)
+CHECKS = (pdb, flake8) + ALL_CHECKS
 
 
 def main(stash):
