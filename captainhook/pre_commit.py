@@ -28,7 +28,7 @@ import os.path
 import sys
 
 from captainhook.checkers import ALL_CHECKS
-from captainhook.utils import bash, python_files_for_commit
+from captainhook.utils import bash
 
 
 def title_print(msg):
@@ -37,21 +37,6 @@ def title_print(msg):
     print(bar)
     print(msg)
     print(bar)
-
-
-def pdb():
-    "Look for pdb.set_trace() commands in python files."
-    forbidden = '^[^#"]*pdb.set_trace()'
-    py_files = python_files_for_commit()
-    if not py_files:
-        return
-    files = py_files.bash((
-        "xargs grep --color --with-filename -n "
-        "-e '{forbidden}'"
-    ).format(
-        forbidden=forbidden
-    ))
-    return files
 
 
 def changes_to_stash():
@@ -106,9 +91,6 @@ def get_check_function(check_name):
     except KeyError:
         print("TODO: Implement importing of extensions.")
 
-CHECKS = (pdb,) + ALL_CHECKS
-
-
 def main(stash):
     """
     Run the configured code checks.
@@ -120,7 +102,7 @@ def main(stash):
     exit_code = 0
     hook_checks = get_hook_checks()
     with gitstash(stash):
-        for func in CHECKS:
+        for func in ALL_CHECKS:
             name = func.__name__
             if hook_checks.get(name, 'on') == 'on':
                 errors = func()
