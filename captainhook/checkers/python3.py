@@ -1,4 +1,7 @@
-from captainhook.utils import bash, python_files_for_commit
+# # # # # # # # # # # # # #
+# CAPTAINHOOK IDENTIFIER  #
+# # # # # # # # # # # # # #
+from .utils import bash, python_files_for_commit
 
 
 def python3():

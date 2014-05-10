@@ -38,6 +38,7 @@ eg::
     [captainhook]
     flake8=off
     pdb=off
+    python3=on
 
 
 

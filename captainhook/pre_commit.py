@@ -27,8 +27,11 @@ from contextlib import contextmanager
 import os.path
 import sys
 
-from captainhook.checkers import ALL_CHECKS
-from captainhook.utils import bash
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(path)
+
+from checkers import ALL_CHECKS
+from checkers.utils import bash
 
 
 def title_print(msg):
@@ -90,6 +93,7 @@ def get_check_function(check_name):
         return globals()[check_name]
     except KeyError:
         print("TODO: Implement importing of extensions.")
+
 
 def main(stash):
     """
