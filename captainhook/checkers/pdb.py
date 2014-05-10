@@ -1,4 +1,7 @@
-from captainhook.utils import python_files_for_commit
+# # # # # # # # # # # # # #
+# CAPTAINHOOK IDENTIFIER  #
+# # # # # # # # # # # # # #
+from .utils import python_files_for_commit
 
 
 def pdb():
@@ -14,4 +17,3 @@ def pdb():
         forbidden=forbidden
     ))
     return files
-

@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 import os
 import os.path
+from os.path import join, exists
 import sys
 
 import captainhook
+
+package_location = os.path.dirname(captainhook.__file__)
 
 
 def get_git_location(folder):
@@ -23,30 +26,59 @@ def is_captain_hook_script(filepath):
     return False
 
 
-def install_pre_commit_hook():
-    git_location = get_git_location(os.getcwd())
-    if not git_location:
-        print("You need to be in a git repo to install this.")
-        sys.exit(1)
+def install_checkers(git_location):
+    """
+    Install checkers package into the git hooks folder.
+
+    Only override existing checkers if they are owned by captainhook.
+    """
+    dest_checker_folder = join(git_location, 'hooks', 'checkers')
+    if not exists(dest_checker_folder):
+        os.mkdir(dest_checker_folder)
+
+    source_checker_folder = join(package_location, 'checkers')
+    for filename in os.listdir(source_checker_folder):
+        if not filename.endswith('.py'):
+            continue
+        source = join(source_checker_folder, filename)
+        destination = join(dest_checker_folder, filename)
+
+        if exists(destination) and not is_captain_hook_script(destination):
+            print(
+                'Not installing checker {0}. One already exists unowned '
+                'by captainhook.'.format(filename)
+            )
+            continue
+        print("Installing check: {0}".format(filename))
+        os.system("cp {0} {1}".format(source, destination))
+
+
+def install_pre_commit_hook(git_location):
+    """
+    Install the pre commit hook.
+
+    Check that there is not pre-commit hook already installed that is not owned
+    by captain hook.
+    """
     print("Installing pre_commit.py to {0}".format(git_location))
-    pre_commit_path = os.path.join(
-        os.path.dirname(captainhook.__file__),
-        'pre_commit.py')
-    pre_commit_destination = os.path.join(
-        git_location,
-        'hooks',
-        'pre-commit'
-        )
-    if os.path.exists(pre_commit_destination):
+    pre_commit_path = join(package_location, 'pre_commit.py')
+    pre_commit_destination = join(git_location, 'hooks', 'pre-commit')
+    if exists(pre_commit_destination):
         if is_captain_hook_script(pre_commit_destination):
             print("Overriding existing captainhook script at {0}".format(
                 pre_commit_destination))
         else:
             print("There is already something at {0}. "
                   "Move it and try again.".format(pre_commit_destination))
+            return
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))
 
 
 if __name__ == '__main__':
-    install_pre_commit_hook()
+    git_location = get_git_location(os.getcwd())
+    if not git_location:
+        print("You need to be in a git repo to install this.")
+        sys.exit(1)
+    install_pre_commit_hook(git_location)
+    install_checkers(git_location)
