@@ -6,7 +6,7 @@ Git hook scripts
 What is it
 ----------
 
-If installed, this package will install a pre-commit hook for git into the
+This package will install a pre-commit hook for git into the
 git repository that you are in at the time of installation.
 
 Upon committing code, the pre-commit hook runs checks against the python files
@@ -97,6 +97,16 @@ For example::
 
 This will block all commits if enabled.
 
+
+Feedback
+--------
+
+I'm eager to get some feedback - positive or negative - about this.
+
+Please make yourself at home, create issues if you've got problems with existing behaviour, or suggestions for future improvements or anything else.
+
+You can reach me on twitter @couperalex.
+
 Developing
 ----------
 
@@ -105,4 +115,4 @@ place which you probably don't want when testing a new check.
 
 You can run the script without performing such a stash using::
 
-    python pre-commit.py -n
+    python captainhook/pre_commit.py -n
