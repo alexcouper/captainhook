@@ -11,5 +11,5 @@ def run():
     for py_file in py_files.splitlines():
         b = bash('python3 -m py_compile {0}'.format(py_file))
         if b.err:
-            errors.append(b.err)
+            errors.append(b.err.decode(encoding='UTF-8'))
     return "\n".join(errors)
