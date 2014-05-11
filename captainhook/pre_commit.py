@@ -24,14 +24,34 @@ except ImportError:
     import configparser
 
 from contextlib import contextmanager
+import importlib
 import os.path
+import pkgutil
 import sys
+import types
 
 path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
-from checkers import ALL_CHECKS
+import checkers
 from checkers.utils import bash
+
+
+def checks():
+    """
+    An iterator of valid checks that are in the installed checkers package.
+
+    yields check name, check module
+    """
+    checkers_dir = os.path.dirname(checkers.__file__)
+    mod_names = [name for _, name, _ in pkgutil.iter_modules([checkers_dir])]
+    for name in mod_names:
+        mod = importlib.import_module("checkers.{0}".format(name))
+
+        # Does the module have a "run" function
+        if isinstance(getattr(mod, 'run', None), types.FunctionType):
+            # has a run method, yield it
+            yield name, mod
 
 
 def title_print(msg):
@@ -83,18 +103,6 @@ def get_hook_checks():
     return {}
 
 
-def get_check_function(check_name):
-    """
-    Get the check function being used in tox.ini
-
-    This can be anything on the PYTHONPATH.
-    """
-    try:
-        return globals()[check_name]
-    except KeyError:
-        print("TODO: Implement importing of extensions.")
-
-
 def main(stash):
     """
     Run the configured code checks.
@@ -106,10 +114,11 @@ def main(stash):
     exit_code = 0
     hook_checks = get_hook_checks()
     with gitstash(stash):
-        for func in ALL_CHECKS:
-            name = func.__name__
+        for name, mod in checks():
+
             if hook_checks.get(name, 'on') == 'on':
-                errors = func()
+                errors = mod.run()
+
                 if errors:
                     title_print("Checking {0}".format(name))
                     print(errors)

@@ -24,6 +24,9 @@ class bash(object):
         return self.output.strip().decode(encoding='UTF-8')
 
     def __nonzero__(self):
+        return self.__bool__()
+
+    def __bool__(self):
         return bool(str(self))
 
 
