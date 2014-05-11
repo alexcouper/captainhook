@@ -4,7 +4,7 @@
 from .utils import bash, python_files_for_commit
 
 
-def flake8():
+def run():
     "Check flake8 errors in the code base."
     py_files = str(python_files_for_commit())
     if not py_files:

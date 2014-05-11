@@ -4,7 +4,7 @@
 from .utils import python_files_for_commit
 
 
-def pdb():
+def run():
     "Look for pdb.set_trace() commands in python files."
     forbidden = '^[^#"]*pdb.set_trace()'
     py_files = python_files_for_commit()

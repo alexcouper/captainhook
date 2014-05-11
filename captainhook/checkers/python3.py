@@ -4,7 +4,7 @@
 from .utils import bash, python_files_for_commit
 
 
-def python3():
+def run():
     "Check to see if python files are py3 compatible"
     py_files = str(python_files_for_commit())
     errors = []

@@ -79,6 +79,23 @@ Example output upon a rejected commit::
     ===============================================================================
 
 
+Extending
+---------
+
+You can add your own check to your git env quite easily.
+
+Simply add a module to ``.git/hooks/checkers`` with a ``run()`` method defined.
+
+The method should return the error string on faillure, or a False like object
+on success.
+
+For example::
+
+    $ cat .git/hooks/checkers/mine.py
+    def run():
+        return "NOT A CHANCE"
+
+This will block all commits if enabled.
 
 Developing
 ----------
