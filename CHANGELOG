@@ -1,4 +1,5 @@
-
+0.8
+===
 
  - Optionally pass extra parameters to checkers
  - Checker controlled defaults
