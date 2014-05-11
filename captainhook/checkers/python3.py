@@ -3,6 +3,8 @@
 # # # # # # # # # # # # # #
 from .utils import bash, python_files_for_commit
 
+DEFAULT = 'on'
+
 
 def run():
     "Check to see if python files are py3 compatible"

@@ -3,6 +3,8 @@
 # # # # # # # # # # # # # #
 from .utils import python_files_for_commit
 
+DEFAULT = 'on'
+
 
 def run():
     "Look for pdb.set_trace() commands in python files."

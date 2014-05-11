@@ -17,12 +17,6 @@ To add a new check:
        with 'on' (run this check) or 'off' (don't). The default behaviour is to
        run all checks defined in ``ALL_CHECKS``.
 """
-try:
-    import ConfigParser as configparser
-except ImportError:
-    # python 3
-    import configparser
-
 from contextlib import contextmanager
 import importlib
 import os.path
@@ -34,7 +28,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 import checkers
-from checkers.utils import bash
+from checkers.utils import bash, HookConfig
 
 
 def checks():
@@ -87,22 +81,6 @@ def gitstash(stash=True):
             bash("git stash pop -q")
 
 
-def get_hook_checks():
-    """
-    Return the hook check options set in tox.ini.
-
-    Return an empty dict if none are set.
-    """
-    config = configparser.ConfigParser()
-    if os.path.exists('tox.ini'):
-        config.readfp(open('tox.ini'))
-        if config.has_section('captainhook'):
-            return {
-                key: value for key, value in config.items('captainhook')
-            }
-    return {}
-
-
 def main(stash):
     """
     Run the configured code checks.
@@ -112,13 +90,16 @@ def main(stash):
         0 - accept commit
     """
     exit_code = 0
-    hook_checks = get_hook_checks()
+    hook_checks = HookConfig('tox.ini')
     with gitstash(stash):
         for name, mod in checks():
-
-            if hook_checks.get(name, 'on') == 'on':
-                errors = mod.run()
-
+            default = getattr(mod, 'DEFAULT', 'off')
+            if hook_checks.is_enabled(name, default=default):
+                args = hook_checks.arguments(name)
+                if args:
+                    errors = mod.run(args)
+                else:
+                    errors = mod.run()
                 if errors:
                     title_print("Checking {0}".format(name))
                     print(errors)
@@ -126,7 +107,7 @@ def main(stash):
 
     if exit_code == 1:
         title_print("Rejecting commit")
-    sys.exit(exit_code)
+    return exit_code
 
 
 if __name__ == '__main__':
@@ -135,4 +116,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--nostash', action='store_true')
     args = parser.parse_args()
-    main(stash=not args.nostash)
+    exit_code = main(stash=not args.nostash)
+    sys.exit(exit_code)

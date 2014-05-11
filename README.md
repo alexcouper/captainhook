@@ -29,7 +29,7 @@ from within any git repo, and the pre-commit hook will be installed.
 Setting Up
 ----------
 
-By default, all hooks are on. To turn off a hook, create a ``tox.ini`` file
+By default, all checks are on. To turn off a check, create a ``tox.ini`` file
 in the base directory of your project with a ``captainhook`` section.
 
 eg::
@@ -41,6 +41,18 @@ eg::
     python3=on
 
 
+Checks can also be passed arguments from the config file. This is done with
+the following notation::
+
+    <check_name>=<status>;<string to be passed through>
+
+For example, flake8 can be passed a string which will be run as options against
+the flake8 command.
+
+    flake8=on;--show-source
+
+Currently checks can only be passed a single argument and must do the parsing
+of that themselves.
 
 Checks
 ------
