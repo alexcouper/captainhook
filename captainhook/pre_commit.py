@@ -45,7 +45,7 @@ def checks():
         # Does the module have a "run" function
         if isinstance(getattr(mod, 'run', None), types.FunctionType):
             # has a run method, yield it
-            yield name, mod
+            yield getattr(mod, 'CHECK_NAME', name), mod
 
 
 def title_print(msg):
