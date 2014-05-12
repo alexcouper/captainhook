@@ -7,6 +7,7 @@ except ImportError:
     # python 3
     import configparser
 
+import os.path
 from subprocess import Popen, PIPE
 
 
@@ -51,14 +52,14 @@ class HookConfig(object):
 
     def __init__(self, config_filename):
         self.config_filename = config_filename
-        self._config = None
+        self._config = {}
 
     def get_file(self):
         return open(self.config_filename)
 
     @property
     def config(self):
-        if not self._config:
+        if not self._config and os.path.exists(self.config_filename):
             c = configparser.ConfigParser()
             c.readfp(self.get_file())
             self._config = dict(c.items('captainhook'))
