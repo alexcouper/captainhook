@@ -4,6 +4,7 @@
 from .utils import python_files_for_commit
 
 DEFAULT = 'on'
+CHECK_NAME = 'pdb'
 
 
 def run():
