@@ -48,13 +48,11 @@ the following notation::
 
     <check_name>=<status>;<string to be passed through>
 
-For example, flake8 can be passed a string which will be run as options against
-the flake8 command.
-
-    flake8=on;--show-source
-
 Currently checks can only be passed a single argument and must do the parsing
 of that themselves.
+
+flake8 obeys the configuration as per the
+[flake8 docs](http://flake8.readthedocs.org/en/latest/config.html)
 
 Checks
 ------
