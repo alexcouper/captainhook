@@ -3,15 +3,18 @@
 # # # # # # # # # # # # # #
 import sys
 from contextlib import contextmanager
-from StringIO import StringIO
 
-from flake8.engine import get_style_guide
-from flake8.main import DEFAULT_CONFIG
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from .utils import python_files_for_commit
 
 DEFAULT = 'on'
 CHECK_NAME = 'flake8'
+NO_FLAKE_MSG = ("flake8 is required for the flake8 plugin.\n"
+                "`pip install flake8` or turn it off in your tox.ini file.")
 
 
 @contextmanager
@@ -26,6 +29,12 @@ def redirected(out=sys.stdout, err=sys.stderr):
 
 def run(arg=''):
     "Check flake8 errors in the code base."
+    try:
+        import flake8  # NOQA
+    except ImportError:
+        return NO_FLAKE_MSG
+    from flake8.engine import get_style_guide
+    from flake8.main import DEFAULT_CONFIG
     py_files = str(python_files_for_commit())
     if not py_files:
         return

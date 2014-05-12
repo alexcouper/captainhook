@@ -1,3 +1,7 @@
+ - Allow checkers to have different module names than checker names.
+ - Change flake8 checker to obey [flake8] section of tox.ini
+ - Fix bug when missing a tox.ini file.
+
 0.8
 ===
 
