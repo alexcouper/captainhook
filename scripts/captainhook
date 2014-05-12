@@ -36,7 +36,15 @@ def install_checkers(git_location):
     if not exists(dest_checker_folder):
         os.mkdir(dest_checker_folder)
 
+    # Remove all captain hook scripts so that we can be sure
+    # any renames of captainhook scripts are OK.
+    for filename in os.listdir(dest_checker_folder):
+        destination = join(dest_checker_folder, filename)
+        if is_captain_hook_script(destination):
+            os.remove(destination)
+
     source_checker_folder = join(package_location, 'checkers')
+
     for filename in os.listdir(source_checker_folder):
         if not filename.endswith('.py'):
             continue
@@ -51,6 +59,7 @@ def install_checkers(git_location):
             continue
         print("Installing check: {0}".format(filename))
         os.system("cp {0} {1}".format(source, destination))
+
 
 
 def install_pre_commit_hook(git_location):
@@ -76,6 +85,7 @@ def install_pre_commit_hook(git_location):
 
 
 if __name__ == '__main__':
+    print("Installing {0}".format(captainhook.VERSION))
     git_location = get_git_location(os.getcwd())
     if not git_location:
         print("You need to be in a git repo to install this.")

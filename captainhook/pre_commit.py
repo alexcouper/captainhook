@@ -24,6 +24,9 @@ import pkgutil
 import sys
 import types
 
+# We don't want pyc or __pycache__ in the checkers module.
+sys.dont_write_bytecode = True
+
 path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
