@@ -52,7 +52,9 @@ Currently checks can only be passed a single argument and must do the parsing
 of that themselves.
 
 flake8 obeys the configuration as per the
-[flake8 docs](http://flake8.readthedocs.org/en/latest/config.html)
+[flake8 docs](http://flake8.readthedocs.org/en/latest/config.html) but any
+path-related options will need to use wildcard patterns (e.g.
+`exclude=*/migrations/*` instead of `exclude=migrations`).
 
 Checks
 ------
