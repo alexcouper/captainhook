@@ -6,11 +6,10 @@ Git hook scripts
 What is it
 ----------
 
-This package will install a pre-commit hook for git into the
-git repository that you are in at the time of installation.
+A set of configurable git hooks and checks.
 
-Upon committing code, the pre-commit hook runs checks against the python files
-to be committed and rejects the commit if any of the checks fail.
+Upon committing code, the pre-commit hook runs configured checks against the 
+files to be committed and rejects the commit if any of the checks turned on fail.
 
 
 Installation
