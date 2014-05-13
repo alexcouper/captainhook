@@ -59,11 +59,13 @@ Checks
 
 Currently supported checks are
 
-    - pdb: Checks to see if there are any uncommented
-      ``import pdb; pdb.set_trace()`` statements in the code to be committed.
-    - flake8: Runs flake8 against the files that are set to be committed.
-    - python3: Checks to see if python files set to be committed are python3
-      compatible.
+- pdb: Checks to see if there are any uncommented
+``import pdb; pdb.set_trace()`` statements in the code to be committed.
+
+- flake8: Runs flake8 against the files that are set to be committed.
+
+- python3: Checks to see if python files set to be committed are python3
+  compatible.
 
 Output
 ------
