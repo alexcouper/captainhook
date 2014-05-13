@@ -1,3 +1,6 @@
+ - Add __version__ to checkers at install time.
+ - Add a grep checker.
+
  0.8.1
  =====
 

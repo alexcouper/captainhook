@@ -25,6 +25,15 @@ def is_captain_hook_script(filepath):
             return True
     return False
 
+def add_version_number_to_file(version, filepath):
+    """Add the version number given to the module at the given path"""
+    with open(filepath, 'r') as f:
+        content = f.readlines()
+
+    with open(filepath, 'w') as f:
+        f.write('__version__ = "{0}"\n'.format(version))
+        f.writelines(content)
+
 
 def install_checkers(git_location):
     """
@@ -60,7 +69,8 @@ def install_checkers(git_location):
         print("Installing check: {0}".format(filename))
         os.system("cp {0} {1}".format(source, destination))
 
-
+    checker_constructor = join(dest_checker_folder, '__init__.py')
+    add_version_number_to_file(captainhook.__version__, checker_constructor)
 
 def install_pre_commit_hook(git_location):
     """
