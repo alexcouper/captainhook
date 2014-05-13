@@ -69,6 +69,11 @@ Currently supported checks are
 - python3: Checks to see if python files set to be committed are python3
   compatible.
 
+- grep: Runs the given grep command against the files in your commit.
+    - Takes a single argument; options which will be passed through to grep
+      verbatim.
+    - Currently you can only specify a single grep command.
+
 Output
 ------
 
