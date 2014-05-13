@@ -52,18 +52,22 @@ Currently checks can only be passed a single argument and must do the parsing
 of that themselves.
 
 flake8 obeys the configuration as per the
-[flake8 docs](http://flake8.readthedocs.org/en/latest/config.html)
+[flake8 docs](http://flake8.readthedocs.org/en/latest/config.html) but any
+path-related options will need to use wildcard patterns (e.g.
+`exclude=*/migrations/*` instead of `exclude=migrations`).
 
 Checks
 ------
 
 Currently supported checks are
 
-    - pdb: Checks to see if there are any uncommented
-      ``import pdb; pdb.set_trace()`` statements in the code to be committed.
-    - flake8: Runs flake8 against the files that are set to be committed.
-    - python3: Checks to see if python files set to be committed are python3
-      compatible.
+- pdb: Checks to see if there are any uncommented
+``import pdb; pdb.set_trace()`` statements in the code to be committed.
+
+- flake8: Runs flake8 against the files that are set to be committed.
+
+- python3: Checks to see if python files set to be committed are python3
+  compatible.
 
 Output
 ------
