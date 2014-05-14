@@ -35,11 +35,11 @@ def run():
         return NO_FLAKE_MSG
     from flake8.engine import get_style_guide
     from flake8.main import DEFAULT_CONFIG
-    py_files = str(python_files_for_commit())
+    py_files = python_files_for_commit()
     if not py_files:
         return
     flake8_style = get_style_guide(config_file=DEFAULT_CONFIG, paths=['.'])
     out, err = StringIO(), StringIO()
     with redirected(out, err):
-        flake8_style.check_files(py_files.split('\n'))
+        flake8_style.check_files(py_files)
     return out.getvalue().strip()

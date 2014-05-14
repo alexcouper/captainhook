@@ -12,4 +12,4 @@ def run():
     "Look for pdb.set_trace() commands in python files."
     forbidden = '^[^#"]*pdb.set_trace()'
     py_files = python_files_for_commit()
-    return grep("-e '{}'".format(forbidden), py_files.replace('\n', ' '))
+    return grep("-e '{}'".format(forbidden), ' '.join(py_files))

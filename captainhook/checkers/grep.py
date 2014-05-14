@@ -14,5 +14,5 @@ def grep(args, files):
 def run(arg=None):
     if arg is None:
         return NO_ARG_MESSAGE
-    files = str(get_files_for_commit()).replace('\n', ' ')
+    files = ' '.join(get_files_for_commit())
     return grep(arg, files)

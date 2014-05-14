@@ -38,12 +38,12 @@ class bash(object):
 
 
 def get_files_for_commit(files_pattern=''):
-    return bash((
+    return str(bash(
         "git diff --cached --name-status | "
         "grep -E '{files_pattern}' | "
         "grep -v -E '^D' | "
         "awk '{{ print ( $(NF) ) }}' "
-    ).format(files_pattern=files_pattern))
+    ).format(files_pattern=files_pattern)).split('\n')
 
 
 def python_files_for_commit():
