@@ -2,7 +2,7 @@
 # # coding: utf-8
 from setuptools import setup, find_packages
 long_description = open('README.md').read()
-
+import pdb; pdb.set_trace()
 setup(
     name='captainhook',
     description='A collection of git commit hooks',

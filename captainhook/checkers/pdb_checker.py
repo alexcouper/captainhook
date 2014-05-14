@@ -7,9 +7,14 @@ from .utils import python_files_for_commit
 DEFAULT = 'on'
 CHECK_NAME = 'pdb'
 
+forbidden = '^[^#"]*pdb.set_trace()'
+
 
 def run():
     "Look for pdb.set_trace() commands in python files."
-    forbidden = '^[^#"]*pdb.set_trace()'
     py_files = python_files_for_commit()
-    return grep("-e '{}'".format(forbidden), ' '.join(py_files))
+    return check_files(py_files)
+
+
+def check_files(filenames):
+    return grep("-e '{}'".format(forbidden), ' '.join(filenames))

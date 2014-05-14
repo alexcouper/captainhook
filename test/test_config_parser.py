@@ -12,7 +12,7 @@ from captainhook.checkers.utils import HookConfig
 class TestHookConfig(unittest.TestCase):
 
     def test_get_hook_configuration(self):
-        h = HookConfig('configfile.ini')
+        h = HookConfig('tox.ini')
         conf = ("[captainhook]\n"
                 "pdb:off\n"
                 "flake8:on\n"
@@ -23,7 +23,7 @@ class TestHookConfig(unittest.TestCase):
         self.assertEquals(h.configuration('pdb'), ('off', ''))
 
     def test_hooks_enabled(self):
-        h = HookConfig('somefile.ini')
+        h = HookConfig('tox.ini')
         conf = ("[captainhook]\n"
                 "flake8:on\n"
                 "python3:on")
@@ -37,7 +37,7 @@ class TestHookConfig(unittest.TestCase):
         self.assertTrue(h.is_enabled('flake8', default='off'))
 
     def test_extra_arguments(self):
-        h = HookConfig('somefile.ini')
+        h = HookConfig('tox.ini')
         conf = ("[captainhook]\n"
                 "flake8:on; --show-source\n"
                 "python3:on")
