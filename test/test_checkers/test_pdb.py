@@ -1,10 +1,9 @@
 import unittest
 
-from mock import patch
-
 from captainhook.checkers import pdb_checker
 
 from . import get_file
+
 
 class TestPdb(unittest.TestCase):
 
@@ -12,7 +11,7 @@ class TestPdb(unittest.TestCase):
         filename = get_file('pdb_errors.py')
         self.assertEquals(
             "{0}:1:import pdb; pdb.set_trace()".format(filename),
-            pdb_checker.check_files([filename])
+            str(pdb_checker.check_files([filename]))
         )
 
     def test_avoids_commented_out_lines(self):
