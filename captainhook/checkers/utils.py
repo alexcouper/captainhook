@@ -45,10 +45,13 @@ def get_files_for_commit():
     )).split('\n')
 
 
-def python_files_for_commit():
+def python_files_for_commit(files_for_commit=None):
     "Get all python files that are staged for commit, that are not deleted."
-    return [f for f in get_files_for_commit()
-            if 'Python script' in str(bash('file {}'.format(f)))]
+    if not files_for_commit:
+        files_for_commit = get_files_for_commit()
+    return [f for f in files_for_commit
+            if ('python script' in str(bash('file {}'.format(f))).lower()
+                or f.endswith('.py'))]
 
 
 class HookConfig(object):
