@@ -8,7 +8,7 @@ What is it
 
 A set of configurable git hooks and checks.
 
-Upon committing code, the pre-commit hook runs configured checks against the 
+Upon committing code, the pre-commit hook runs configured checks against the
 files to be committed and rejects the commit if any of the checks turned on fail.
 
 

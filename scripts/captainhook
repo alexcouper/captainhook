@@ -25,6 +25,7 @@ def is_captain_hook_script(filepath):
             return True
     return False
 
+
 def add_version_number_to_file(version, filepath):
     """Add the version number given to the module at the given path"""
     with open(filepath, 'r') as f:
@@ -72,6 +73,7 @@ def install_checkers(git_location):
     checker_constructor = join(dest_checker_folder, '__init__.py')
     add_version_number_to_file(captainhook.__version__, checker_constructor)
 
+
 def install_pre_commit_hook(git_location):
     """
     Install the pre commit hook.
@@ -94,9 +96,33 @@ def install_pre_commit_hook(git_location):
     os.system('chmod +x {0}'.format(pre_commit_destination))
 
 
+def get_repo_version(git_location):
+    "Get the git-installed version of captainhook"
+    checker_constructor = join(
+        git_location, 'hooks', 'checkers', '__init__.py')
+    if not os.path.exists(checker_constructor):
+        return 'Not installed'
+    sys.path.append(join(git_location, 'hooks'))
+    import checkers
+    version = getattr(checkers, '__version__', '< 0.8.2')
+    sys.path.pop()
+    return version
+
+
 if __name__ == '__main__':
-    print("Installing {0}".format(captainhook.VERSION))
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--version', action='store_true')
+    args = parser.parse_args()
     git_location = get_git_location(os.getcwd())
+    if args.version:
+        print("Environment version: {}".format(captainhook.__version__))
+        if git_location:
+            repo_version = get_repo_version(git_location)
+            print("Git repo version: {}".format(repo_version))
+        sys.exit(0)
+
+    print("Installing {0}".format(captainhook.VERSION))
     if not git_location:
         print("You need to be in a git repo to install this.")
         sys.exit(1)

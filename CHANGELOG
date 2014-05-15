@@ -1,3 +1,4 @@
+ - Add --version option
  - Add option to filter out files in pdb_checker.
  - Add travis.yml file
  - Add tests for pdb checker
