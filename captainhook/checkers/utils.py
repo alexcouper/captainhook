@@ -37,19 +37,18 @@ class bash(object):
         return bool(str(self))
 
 
-def get_files_for_commit(files_pattern=''):
-    return bash((
+def get_files_for_commit():
+    return str(bash(
         "git diff --cached --name-status | "
-        "grep -E '{files_pattern}' | "
         "grep -v -E '^D' | "
-        "awk '{{ print ( $(NF) ) }}' "
-    ).format(files_pattern=files_pattern))
+        "awk '{ print ( $(NF) ) }' "
+    )).split('\n')
 
 
 def python_files_for_commit():
     "Get all python files that are staged for commit, that are not deleted."
-    files_pattern = '\.py(\..+)?$'
-    return get_files_for_commit(files_pattern)
+    return [f for f in get_files_for_commit()
+            if 'Python script' in str(bash('file {}'.format(f)))]
 
 
 class HookConfig(object):
