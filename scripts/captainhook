@@ -74,7 +74,7 @@ def install_checkers(git_location):
     add_version_number_to_file(captainhook.__version__, checker_constructor)
 
 
-def install_pre_commit_hook(git_location):
+def install_pre_commit_hook(git_location, use_virtualenv=False):
     """
     Install the pre commit hook.
 
@@ -94,9 +94,11 @@ def install_pre_commit_hook(git_location):
             return
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))
-    os.system(
-        'sed -i "1 s,^.*$,#!{}," {}'.format(sys.executable,
-                                            pre_commit_destination))
+    if use_virtualenv:
+        print("Configuring pre-commit hook to use virtualenv")
+        os.system(
+            'sed -i "1 s,^.*$,#!{}," {}'.format(sys.executable,
+                                                pre_commit_destination))
 
 
 def get_repo_version(git_location):
@@ -116,6 +118,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--version', action='store_true')
+    parser.add_argument('-e', '--use-virtualenv-python', action='store_true')
     args = parser.parse_args()
     git_location = get_git_location(os.getcwd())
     if args.version:
@@ -129,5 +132,5 @@ if __name__ == '__main__':
     if not git_location:
         print("You need to be in a git repo to install this.")
         sys.exit(1)
-    install_pre_commit_hook(git_location)
+    install_pre_commit_hook(git_location, args.use_virtualenv)
     install_checkers(git_location)
