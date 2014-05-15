@@ -96,9 +96,9 @@ def install_pre_commit_hook(git_location, use_virtualenv=False):
     os.system('chmod +x {0}'.format(pre_commit_destination))
     if use_virtualenv:
         print("Configuring pre-commit hook to use virtualenv")
-        os.system(
-            'sed -i "1 s,^.*$,#!{}," {}'.format(sys.executable,
-                                                pre_commit_destination))
+        cmd = 'sed -i '' "1 s,^.*$,#!{}," {}'.format(sys.executable,
+                                                     pre_commit_destination)
+        os.system(cmd)
 
 
 def get_repo_version(git_location):
@@ -118,7 +118,10 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--version', action='store_true')
-    parser.add_argument('-e', '--use-virtualenv-python', action='store_true')
+    parser.add_argument(
+        '-e', '--use-virtualenv-python', dest='use_virtualenv',
+        action='store_true',
+        help='Use the current virtualenv when running hook scripts')
     args = parser.parse_args()
     git_location = get_git_location(os.getcwd())
     if args.version:
