@@ -1,8 +1,9 @@
+ - Add behave tests for pdb.
  - Add option to run hooks from current virtualenv.
- - Add --version option
+ - Add --version option.
  - Add option to filter out files in pdb_checker.
- - Add travis.yml file
- - Add tests for pdb checker
+ - Add travis.yml file.
+ - Add tests for pdb checker.
  - Add __version__ to checkers at install time.
  - Add a grep checker.
 
@@ -11,16 +12,16 @@
 
  - Delete all captainhook checkers before installing.
  - Don't write pyc files in checkers.
- - Print version on install
+ - Print version on install.
  - Allow checkers to have different module names than checker names.
- - Change flake8 checker to obey [flake8] section of tox.ini
+ - Change flake8 checker to obey [flake8] section of tox.ini.
  - Fix bug when missing a tox.ini file.
 
 0.8
 ===
 
- - Optionally pass extra parameters to checkers
- - Checker controlled defaults
+ - Optionally pass extra parameters to checkers.
+ - Checker controlled defaults.
 
 0.7
 ===
