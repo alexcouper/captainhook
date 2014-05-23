@@ -27,14 +27,14 @@ class bash(object):
         self.output, self.err = self.p.communicate(input=self.output)
         return self
 
-    def __str__(self):
+    def __unicode__(self):
         return self.output.strip().decode(encoding='UTF-8')
 
     def __nonzero__(self):
         return self.__bool__()
 
     def __bool__(self):
-        return bool(str(self))
+        return bool(unicode(self))
 
 
 def get_files_for_commit():
@@ -50,7 +50,7 @@ def python_files_for_commit(files_for_commit=None):
     if not files_for_commit:
         files_for_commit = get_files_for_commit()
     return [f for f in files_for_commit
-            if ('python script' in str(bash('file {}'.format(f))).lower()
+            if ('python script' in unicode(bash('file {}'.format(f))).lower()
                 or f.endswith('.py'))]
 
 
