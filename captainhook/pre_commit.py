@@ -22,6 +22,8 @@ import importlib
 import os.path
 import pkgutil
 import sys
+import shutil
+import tempfile
 import types
 
 # We don't want pyc or __pycache__ in the checkers module.
@@ -31,7 +33,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 import checkers
-from checkers.utils import bash, HookConfig
+from checkers.utils import bash, get_files_for_commit, HookConfig
 
 
 def checks():
@@ -65,26 +67,23 @@ def changes_to_stash():
 
 
 @contextmanager
-def gitstash(stash=True):
+def gitstash():
     """
     Validate the commit diff.
 
-    Stash the unstaged changes first and unstash afterwards regardless of
-    failure.
+    Make copies of the staged changes for analysis.
     """
-    if stash and not changes_to_stash():
-        stash = False
+    safe_directory = tempfile.mkdtemp()
 
-    if stash:
-        bash("git stash -q --keep-index")
+    get_files_for_commit(copy_dest=safe_directory)
+
     try:
         yield
     finally:
-        if stash:
-            bash("git stash pop -q")
+        shutil.rmtree(safe_directory)
 
 
-def main(stash):
+def main():
     """
     Run the configured code checks.
 
@@ -94,7 +93,7 @@ def main(stash):
     """
     exit_code = 0
     hook_checks = HookConfig('tox.ini')
-    with gitstash(stash):
+    with gitstash():
         for name, mod in checks():
             default = getattr(mod, 'DEFAULT', 'off')
             if hook_checks.is_enabled(name, default=default):
@@ -117,7 +116,6 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--nostash', action='store_true')
     args = parser.parse_args()
-    exit_code = main(stash=not args.nostash)
+    exit_code = main()
     sys.exit(exit_code)
