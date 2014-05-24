@@ -11,7 +11,7 @@ class TestPdb(unittest.TestCase):
         filename = get_file('pdb_errors.py')
         self.assertEquals(
             "{0}:1:import pdb; pdb.set_trace()".format(filename),
-            str(pdb_checker.check_files([filename]))
+            pdb_checker.check_files([filename]).value()
         )
 
     def test_avoids_commented_out_lines(self):

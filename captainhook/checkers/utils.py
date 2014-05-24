@@ -27,22 +27,28 @@ class bash(object):
         self.output, self.err = self.p.communicate(input=self.output)
         return self
 
+    def __unicode__(self):
+        return self.value()
+
     def __str__(self):
-        return self.output.strip().decode(encoding='UTF-8')
+        return self.value()
 
     def __nonzero__(self):
         return self.__bool__()
 
     def __bool__(self):
-        return bool(str(self))
+        return bool(self.value())
+
+    def value(self):
+        return self.output.strip().decode(encoding='UTF-8')
 
 
 def get_files_for_commit():
-    return str(bash(
+    return bash(
         "git diff --cached --name-status | "
         "grep -v -E '^D' | "
         "awk '{ print ( $(NF) ) }' "
-    )).split('\n')
+    ).value().split('\n')
 
 
 def python_files_for_commit(files_for_commit=None):
@@ -50,7 +56,7 @@ def python_files_for_commit(files_for_commit=None):
     if not files_for_commit:
         files_for_commit = get_files_for_commit()
     return [f for f in files_for_commit
-            if ('python script' in str(bash('file {}'.format(f))).lower()
+            if ('python script' in bash('file {}'.format(f)).value().lower()
                 or f.endswith('.py'))]
 
 
