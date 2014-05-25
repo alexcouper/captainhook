@@ -1,3 +1,4 @@
+ - Fix ``bash`` unicode decode errors.
  - Add behave tests for pdb.
  - Add option to run hooks from current virtualenv.
  - Add --version option.
