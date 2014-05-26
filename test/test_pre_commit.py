@@ -17,7 +17,7 @@ class TestMain(unittest.TestCase):
 
         checks.return_value = [("testmod", testmod)]
 
-        result = pre_commit.main(False)
+        result = pre_commit.main()
 
         self.assertEquals(result, 0)
         testmod.run.assert_called_with()
@@ -33,7 +33,7 @@ class TestMain(unittest.TestCase):
 
         checks.return_value = [("testmod", testmod)]
 
-        result = pre_commit.main(False)
+        result = pre_commit.main()
 
         self.assertEquals(result, 0)
         testmod.run.assert_called_with('yep')
