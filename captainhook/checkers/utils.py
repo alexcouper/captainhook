@@ -10,6 +10,8 @@ except ImportError:
 import os.path
 from subprocess import Popen, PIPE
 
+FILES_FOR_COMMIT = None
+
 
 class bash(object):
     "This is lower class because it is intended to be used as a method."
@@ -43,12 +45,42 @@ class bash(object):
         return self.output.strip().decode(encoding='UTF-8')
 
 
-def get_files_for_commit():
-    return bash(
-        "git diff --cached --name-status | "
-        "grep -v -E '^D' | "
-        "awk '{ print ( $(NF) ) }' "
-    ).value().split('\n')
+def get_files_for_commit(copy_dest=None):
+    "Get copies of to-be-committed-files for analysis."
+    global FILES_FOR_COMMIT
+    if not FILES_FOR_COMMIT:
+        real_files = bash(
+            "git diff --cached --name-status | "
+            "grep -v -E '^D' | "
+            "awk '{ print ( $(NF) ) }' "
+        ).value().split('\n')
+
+        FILES_FOR_COMMIT = create_fake_copies(real_files, copy_dest)
+
+    return FILES_FOR_COMMIT
+
+
+def create_fake_copies(files, destination):
+    """
+    Create copies of the given list of files in the destination given.
+
+    Creates copies of the actual files to be committed using
+    git show :<filename>
+
+    Return a list of destination files.
+    """
+    dest_files = []
+    for filename in files:
+        leaf_dest_folder = os.path.join(destination, os.path.dirname(filename))
+        if not os.path.exists(leaf_dest_folder):
+            os.makedirs(leaf_dest_folder)
+        dest_file = os.path.join(destination, filename)
+        bash("git show :{filename} > {dest_file}".format(
+            filename=filename,
+            dest_file=dest_file)
+        )
+        dest_files.append(dest_file)
+    return dest_files
 
 
 def python_files_for_commit(files_for_commit=None):

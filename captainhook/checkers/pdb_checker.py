@@ -20,7 +20,7 @@ def run(arg=''):
     py_files = python_files_for_commit()
     if args.ignore:
         py_files = set(py_files) - set(args.ignore)
-    return check_files(py_files)
+    return check_files(py_files).value()
 
 
 def get_parser():
