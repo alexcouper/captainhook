@@ -27,6 +27,7 @@ import tempfile
 import types
 
 # We don't want pyc or __pycache__ in the checkers module.
+TEMP_FOLDER = None
 sys.dont_write_bytecode = True
 
 path = os.path.dirname(os.path.abspath(__file__))
@@ -73,7 +74,9 @@ def gitstash():
 
     Make copies of the staged changes for analysis.
     """
+    global TEMP_FOLDER
     safe_directory = tempfile.mkdtemp()
+    TEMP_FOLDER = safe_directory
 
     get_files_for_commit(copy_dest=safe_directory)
 
@@ -91,6 +94,7 @@ def main():
         1 - reject commit
         0 - accept commit
     """
+    global TEMP_FOLDER
     exit_code = 0
     hook_checks = HookConfig('tox.ini')
     with gitstash():
@@ -104,7 +108,7 @@ def main():
                     errors = mod.run()
                 if errors:
                     title_print("Checking {0}".format(name))
-                    print(errors)
+                    print(errors.replace(TEMP_FOLDER + "/", ''))
                     exit_code = 1
 
     if exit_code == 1:

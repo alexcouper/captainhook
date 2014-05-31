@@ -15,4 +15,4 @@ def run(arg=None):
     if arg is None:
         return NO_ARG_MESSAGE
     files = ' '.join(get_files_for_commit())
-    return grep(arg, files)
+    return grep(arg, files).value()
