@@ -1,3 +1,7 @@
+ 0.8.2
+ =====
+
+ - Analyze the versions of the file to be committed.
  - Fix ``bash`` unicode decode errors.
  - Add behave tests for pdb.
  - Add option to run hooks from current virtualenv.
