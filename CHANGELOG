@@ -1,3 +1,5 @@
+ - Use py2to3 to analyze python files' py3 compatibility.
+
  0.8.2
  =====
 
