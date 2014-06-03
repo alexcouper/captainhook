@@ -9,7 +9,7 @@ try:
 except ImportError:
     from io import StringIO
 
-from .utils import python_files_for_commit
+from .utils import filter_python_files
 
 DEFAULT = 'on'
 CHECK_NAME = 'flake8'
@@ -27,7 +27,7 @@ def redirected(out=sys.stdout, err=sys.stderr):
         sys.stdout, sys.stderr = saved
 
 
-def run():
+def run(files):
     "Check flake8 errors in the code base."
     try:
         import flake8  # NOQA
@@ -35,7 +35,7 @@ def run():
         return NO_FLAKE_MSG
     from flake8.engine import get_style_guide
     from flake8.main import DEFAULT_CONFIG
-    py_files = python_files_for_commit()
+    py_files = filter_python_files(files)
     if not py_files:
         return
     flake8_style = get_style_guide(config_file=DEFAULT_CONFIG, paths=['.'])
