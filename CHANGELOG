@@ -1,3 +1,5 @@
+ - Change install to be an explicit subcommand: `captainhook install`
+ - Add a command to run checkers against uncommitted code: `captainhook run`
  - All checkers now take a list of files to check.
  - Only use `file` to determine pythonic nature if there is no extension.
  - Use py2to3 to analyze python files' py3 compatibility.
