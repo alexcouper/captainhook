@@ -16,7 +16,7 @@ setup(
         'scripts/captainhook'
     ],
     install_requires=[
-        'docopt',
+        'docopt==0.6.1',
     ],
     packages=find_packages(),
     classifiers=[
