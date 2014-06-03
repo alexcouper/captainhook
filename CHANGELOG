@@ -1,4 +1,4 @@
- - Added dependency on docopt for easier argument parsing.
+ - Add dependency on docopt for easier argument parsing.
  - Change install to be an explicit subcommand: `captainhook install`
  - Add a command to run checkers against uncommitted code: `captainhook run`
  - All checkers now take a list of files to check.
