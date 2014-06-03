@@ -79,9 +79,11 @@ Currently supported checks are
   compatible.
 
 - grep: Runs the given grep command against the files in your commit.
-    - Takes a single argument; options which will be passed through to grep
-      verbatim.
-    - Currently you can only specify a single grep command.
+  
+      * Takes a single argument; options which will be passed through to grep
+        verbatim.
+  
+      * Currently you can only specify a single grep command.
 
 Output
 ------
@@ -138,7 +140,7 @@ tox.ini has not been used to override it.
 Feedback
 --------
 
-I'm eager to get some feedback - positive or negative - about this.
+I'm interested in hearing feedback - positive or negative - about this.
 
 Please make yourself at home, create issues if you've got problems with existing behaviour, or suggestions for future improvements or anything else.
 
