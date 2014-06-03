@@ -87,9 +87,19 @@ def python_files_for_commit(files_for_commit=None):
     "Get all python files that are staged for commit, that are not deleted."
     if not files_for_commit:
         files_for_commit = get_files_for_commit()
-    return [f for f in files_for_commit
-            if ('python script' in bash('file {}'.format(f)).value().lower()
-                or f.endswith('.py'))]
+
+    py_files = []
+    for f in files_for_commit:
+        # If we end in .py, or if we don't have an extension and file says that
+        # we are a python script, then add us to the list
+        extension = os.path.splitext(f)[-1]
+        if extension:
+            if extension == '.py':
+                py_files.append(f)
+        elif 'python script' in bash('file {}'.format(f)).value().lower():
+            py_files.append(f)
+
+    return py_files
 
 
 class HookConfig(object):
