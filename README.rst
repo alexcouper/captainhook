@@ -80,10 +80,10 @@ Currently supported checks are
 
 - grep: Runs the given grep command against the files in your commit.
   
-      * Takes a single argument; options which will be passed through to grep
-        verbatim.
+  * Takes a single argument; options which will be passed through to grep
+    verbatim.
   
-      * Currently you can only specify a single grep command.
+  * Currently you can only specify a single grep command.
 
 Output
 ------
