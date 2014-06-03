@@ -34,7 +34,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 import checkers
-from checkers.utils import bash, get_files, HookConfig
+from checkers.utils import get_files, HookConfig
 
 
 def checks():
@@ -62,13 +62,8 @@ def title_print(msg):
     print(bar)
 
 
-def changes_to_stash():
-    "Check there are changes to stash"
-    return bool(bash('git diff'))
-
-
 @contextmanager
-def stashed_files():
+def files_to_check(commit_only):
     """
     Validate the commit diff.
 
@@ -78,7 +73,7 @@ def stashed_files():
     safe_directory = tempfile.mkdtemp()
     TEMP_FOLDER = safe_directory
 
-    files = get_files(copy_dest=safe_directory)
+    files = get_files(commit_only=commit_only, copy_dest=safe_directory)
 
     try:
         yield files
@@ -86,7 +81,7 @@ def stashed_files():
         shutil.rmtree(safe_directory)
 
 
-def main():
+def main(commit_only=True):
     """
     Run the configured code checks.
 
@@ -97,7 +92,7 @@ def main():
     global TEMP_FOLDER
     exit_code = 0
     hook_checks = HookConfig('tox.ini')
-    with stashed_files() as files:
+    with files_to_check(commit_only) as files:
         for name, mod in checks():
             default = getattr(mod, 'DEFAULT', 'off')
             if hook_checks.is_enabled(name, default=default):
@@ -120,6 +115,9 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('--all', action='store_true',
+                        help=('Run the checks against the whole code base')
+                        )
     args = parser.parse_args()
-    exit_code = main()
+    exit_code = main(commit_only=not args.all)
     sys.exit(exit_code)

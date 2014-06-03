@@ -1,4 +1,18 @@
 #!/usr/bin/env python
+"""CaptainHook
+
+Usage:
+  captainhook install [--use-virtualenv-python]
+  captainhook run
+  captainhook -h | --help
+  captainhook --version
+
+Options:
+  -h --help                    Show this screen.
+  --version                    Show version.
+  --use-virtualenv-python      Use the current virtualenv when running hook
+                               scripts. [Default: false].
+"""
 import os
 import os.path
 from os.path import join, exists
@@ -115,25 +129,29 @@ def get_repo_version(git_location):
 
 
 if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--version', action='store_true')
-    parser.add_argument(
-        '-e', '--use-virtualenv-python', dest='use_virtualenv',
-        action='store_true',
-        help='Use the current virtualenv when running hook scripts')
-    args = parser.parse_args()
+    import docopt
+    arguments = docopt.docopt(__doc__)
     git_location = get_git_location(os.getcwd())
-    if args.version:
+    if not git_location:
+        print("You need to be in a git repo to run captainhook.")
+        sys.exit(1)
+
+    if arguments['--version']:
         print("Environment version: {}".format(captainhook.__version__))
         if git_location:
             repo_version = get_repo_version(git_location)
             print("Git repo version: {}".format(repo_version))
         sys.exit(0)
 
-    print("Installing {0}".format(captainhook.VERSION))
-    if not git_location:
-        print("You need to be in a git repo to install this.")
-        sys.exit(1)
-    install_pre_commit_hook(git_location, args.use_virtualenv)
-    install_checkers(git_location)
+    if arguments['install']:
+        print("Installing {0}".format(captainhook.VERSION))
+        install_pre_commit_hook(git_location,
+                                arguments['--use-virtualenv-python'])
+        install_checkers(git_location)
+    elif arguments['run']:
+        pre_commit_script = join(git_location, 'hooks', 'pre-commit')
+        if not exists(pre_commit_script):
+            print('Try installing the hook script first: captainhook install')
+            sys.exit(1)
+        # Perform a run of the hook, ignoring what's not committed.
+        os.system(pre_commit_script + ' --all')
