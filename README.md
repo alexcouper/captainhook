@@ -145,9 +145,9 @@ You can reach me on twitter @couperalex.
 Developing
 ----------
 
-Running pre-commit.py on its own will by default cause a ``git stash`` to take
-place which you probably don't want when testing a new check.
+Running pre-commit.py on its own will by default create copies of the files to
+be committed which you probably don't want when testing a new check.
 
-You can run the script without performing such a stash using::
+You can run the script against all your code base using::
 
-    python captainhook/pre_commit.py -n
+    python captainhook/pre_commit.py --all
