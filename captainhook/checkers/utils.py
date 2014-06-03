@@ -96,6 +96,8 @@ def python_files_for_commit(files_for_commit=None):
         if extension:
             if extension == '.py':
                 py_files.append(f)
+        elif 'python' in file(f, 'r').readline():
+            py_files.append(f)
         elif 'python script' in bash('file {}'.format(f)).value().lower():
             py_files.append(f)
 
