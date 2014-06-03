@@ -1,3 +1,6 @@
+0.8.3
+=====
+
  - Add dependency on docopt for easier argument parsing.
  - Change install to be an explicit subcommand: `captainhook install`
  - Add a command to run checkers against uncommitted code: `captainhook run`
@@ -5,8 +8,8 @@
  - Only use `file` to determine pythonic nature if there is no extension.
  - Use py2to3 to analyze python files' py3 compatibility.
 
- 0.8.2
- =====
+0.8.2
+=====
 
  - Analyze the versions of the file to be committed.
  - Fix ``bash`` unicode decode errors.
@@ -19,8 +22,8 @@
  - Add __version__ to checkers at install time.
  - Add a grep checker.
 
- 0.8.1
- =====
+0.8.1
+=====
 
  - Delete all captainhook checkers before installing.
  - Don't write pyc files in checkers.
