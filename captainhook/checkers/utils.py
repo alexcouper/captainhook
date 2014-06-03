@@ -43,15 +43,22 @@ class bash(object):
         return self.output.strip().decode(encoding='UTF-8')
 
 
-def get_files(copy_dest=None):
+def get_files(commit_only=True, copy_dest=None):
     "Get copies of files for analysis."
-    real_files = bash(
-        "git diff --cached --name-status | "
-        "grep -v -E '^D' | "
-        "awk '{ print ( $(NF) ) }' "
-    ).value().split('\n')
+    if commit_only:
+        real_files = bash(
+            "git diff --cached --name-status | "
+            "grep -v -E '^D' | "
+            "awk '{ print ( $(NF) ) }' "
+        ).value().strip()
 
-    return create_fake_copies(real_files, copy_dest)
+        if real_files:
+            return create_fake_copies(real_files.split('\n'), copy_dest)
+        return []
+    else:
+        return bash(
+            "git ls-tree --name-only --full-tree -r HEAD"
+        ).value().split('\n')
 
 
 def create_fake_copies(files, destination):

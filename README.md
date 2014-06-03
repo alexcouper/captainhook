@@ -19,11 +19,19 @@ Install using pip::
 
     pip install captainhook
 
-Once installed into your environment, you will be able to run::
+You can then install the hooks using::
 
-    captainhook
+    captainhook install
 
 from within any git repo, and the pre-commit hook will be installed.
+
+Running without commiting
+-------------------------
+
+You can perform a run against all your code base using::
+
+    captainhook run
+
 
 Setting Up
 ----------
