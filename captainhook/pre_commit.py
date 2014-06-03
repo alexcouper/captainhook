@@ -34,7 +34,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 import checkers
-from checkers.utils import bash, get_files_for_commit, HookConfig
+from checkers.utils import bash, get_files, HookConfig
 
 
 def checks():
@@ -68,7 +68,7 @@ def changes_to_stash():
 
 
 @contextmanager
-def gitstash():
+def stashed_files():
     """
     Validate the commit diff.
 
@@ -78,10 +78,10 @@ def gitstash():
     safe_directory = tempfile.mkdtemp()
     TEMP_FOLDER = safe_directory
 
-    get_files_for_commit(copy_dest=safe_directory)
+    files = get_files(copy_dest=safe_directory)
 
     try:
-        yield
+        yield files
     finally:
         shutil.rmtree(safe_directory)
 
@@ -97,15 +97,15 @@ def main():
     global TEMP_FOLDER
     exit_code = 0
     hook_checks = HookConfig('tox.ini')
-    with gitstash():
+    with stashed_files() as files:
         for name, mod in checks():
             default = getattr(mod, 'DEFAULT', 'off')
             if hook_checks.is_enabled(name, default=default):
                 args = hook_checks.arguments(name)
                 if args:
-                    errors = mod.run(args)
+                    errors = mod.run(files, args)
                 else:
-                    errors = mod.run()
+                    errors = mod.run(files)
                 if errors:
                     title_print("Checking {0}".format(name))
                     print((errors.replace(TEMP_FOLDER + "/", '')))

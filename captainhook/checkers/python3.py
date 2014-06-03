@@ -1,15 +1,15 @@
 # # # # # # # # # # # # # #
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
-from .utils import bash, python_files_for_commit
+from .utils import bash, filter_python_files
 
 DEFAULT = 'on'
 
 
-def run():
+def run(files):
     "Check to see if python files are py3 compatible"
     errors = []
-    for py_file in python_files_for_commit():
+    for py_file in filter_python_files(files):
         # We only want to show errors if we CAN'T compile to py3.
         # but we want to show all the errors at once.
         b = bash('python3 -m py_compile {0}'.format(py_file))
