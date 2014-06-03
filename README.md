@@ -84,10 +84,14 @@ Example output upon a rejected commit::
     ===============================================================================
     Checking python3
     ===============================================================================
-      File "captainhook/pre_commit.py", line 77
-        print 'a'
-                ^
-    SyntaxError: invalid syntax
+    --- captainhook/pre_commit.py   (original)
+    +++ captainhook/pre_commit.py   (refactored)
+    @@ -66,7 +66,7 @@
+         "Check there are changes to stash"
+         return bool(bash('git diff'))
+
+    -print 'a'
+    +print('a')
     ===============================================================================
     Checking flake8
     ===============================================================================

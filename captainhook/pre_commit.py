@@ -108,7 +108,7 @@ def main():
                     errors = mod.run()
                 if errors:
                     title_print("Checking {0}".format(name))
-                    print(errors.replace(TEMP_FOLDER + "/", ''))
+                    print((errors.replace(TEMP_FOLDER + "/", '')))
                     exit_code = 1
 
     if exit_code == 1:
