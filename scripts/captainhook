@@ -105,7 +105,7 @@ def install_pre_commit_hook(git_location, use_virtualenv=False):
         else:
             print("There is already something at {0}. "
                   "Move it and try again.".format(pre_commit_destination))
-            return
+            sys.exit(1)
     os.system("cp {0} {1}".format(pre_commit_path, pre_commit_destination))
     os.system('chmod +x {0}'.format(pre_commit_destination))
     if use_virtualenv:
