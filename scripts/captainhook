@@ -4,6 +4,7 @@
 Usage:
   captainhook install [--use-virtualenv-python]
   captainhook run
+  captainhook dependents
   captainhook -h | --help
   captainhook --version
 
@@ -155,3 +156,8 @@ if __name__ == '__main__':
             sys.exit(1)
         # Perform a run of the hook, ignoring what's not committed.
         os.system(pre_commit_script + ' --all')
+    elif arguments['dependents']:
+        # import checkers from the .git repo
+        # ask utils for the relevant checker modules
+        # install anything found in DEPENDENCIES
+        pass
