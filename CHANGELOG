@@ -1,3 +1,5 @@
+ - Don't install checkers if the hook can't be installed.
+
 0.8.3
 =====
 
