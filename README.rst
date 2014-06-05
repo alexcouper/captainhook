@@ -65,6 +65,12 @@ flake8 obeys the configuration as per the
 path-related options will need to use wildcard patterns (e.g.
 `exclude=*/migrations/*` instead of `exclude=migrations`).
 
+To avoid being checked at all, you can commit using the ``--no-verify`` flag::
+
+    git commit -a --no-verify
+
+
+
 Checks
 ------
 
@@ -79,10 +85,10 @@ Currently supported checks are
   compatible.
 
 - grep: Runs the given grep command against the files in your commit.
-  
+
   * Takes a single argument; options which will be passed through to grep
     verbatim.
-  
+
   * Currently you can only specify a single grep command.
 
 Output
@@ -128,6 +134,7 @@ on success.
 For example::
 
     $ cat .git/hooks/checkers/mine.py
+    DEFAULT = 'on'
     def run():
         return "NOT A CHANCE"
 
@@ -135,7 +142,7 @@ This will block all commits if enabled.
 
 A variable ``DEFAULT`` can be specified in the module and will be used to
 determine the check is assumed "on" or "off". This value is only used if
-tox.ini has not been used to override it.
+tox.ini has not been used to override it. By default
 
 Feedback
 --------
