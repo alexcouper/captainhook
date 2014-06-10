@@ -8,7 +8,7 @@ except ImportError:
     import configparser
 
 import os.path
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
 
 
 class bash(object):

@@ -4,12 +4,13 @@
 import sys
 from contextlib import contextmanager
 
+from .utils import filter_python_files
+
 try:
     from StringIO import StringIO
 except ImportError:
     from io import StringIO
 
-from .utils import filter_python_files
 
 DEFAULT = 'on'
 CHECK_NAME = 'flake8'

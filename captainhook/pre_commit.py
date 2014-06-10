@@ -17,14 +17,14 @@ To add a new check:
        with 'on' (run this check) or 'off' (don't). The default behaviour is to
        run all checks defined in ``ALL_CHECKS``.
 """
-from contextlib import contextmanager
 import importlib
 import os.path
 import pkgutil
-import sys
 import shutil
+import sys
 import tempfile
 import types
+from contextlib import contextmanager
 
 # We don't want pyc or __pycache__ in the checkers module.
 TEMP_FOLDER = None
