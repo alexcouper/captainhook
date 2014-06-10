@@ -1,6 +1,6 @@
 import unittest
 
-from mock import patch, Mock
+from mock import Mock, patch
 
 from captainhook import pre_commit
 

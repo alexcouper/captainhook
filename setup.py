@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # # coding: utf-8
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
+
 long_description = open('README.rst').read()
 
 setup(
@@ -17,6 +18,8 @@ setup(
     ],
     install_requires=[
         'docopt==0.6.1',
+        'flake8',
+        'isort',
     ],
     packages=find_packages(),
     classifiers=[

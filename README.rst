@@ -84,6 +84,8 @@ Currently supported checks are
 - python3: Checks to see if python files set to be committed are python3
   compatible.
 
+- isort: Checks to see if all import statements have been sorted correctly.
+
 - grep: Runs the given grep command against the files in your commit.
 
   * Takes a single argument; options which will be passed through to grep
