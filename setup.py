@@ -18,8 +18,8 @@ setup(
     ],
     install_requires=[
         'docopt==0.6.1',
-        'flake8==2.1.0',
-        'isort==3.8.1',
+        'flake8',
+        'isort',
     ],
     packages=find_packages(),
     classifiers=[
