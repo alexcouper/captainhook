@@ -15,8 +15,8 @@ Options:
 """
 import os
 import os.path
-from os.path import join, exists
 import sys
+from os.path import exists, join
 
 import captainhook
 
@@ -34,8 +34,8 @@ def get_git_location(folder):
 
 def is_captain_hook_script(filepath):
     "Check to see if the given filepath is a captain hook owned script"
-    with open(filepath, 'r') as script:
-        if "CAPTAINHOOK IDENTIFIER" in script.read():
+    with open(filepath, 'rb') as script:
+        if b"CAPTAINHOOK IDENTIFIER" in script.read():
             return True
     return False
 
@@ -64,7 +64,7 @@ def install_checkers(git_location):
     # any renames of captainhook scripts are OK.
     for filename in os.listdir(dest_checker_folder):
         destination = join(dest_checker_folder, filename)
-        if is_captain_hook_script(destination):
+        if os.path.isfile(destination) and is_captain_hook_script(destination):
             os.remove(destination)
 
     source_checker_folder = join(package_location, 'checkers')
