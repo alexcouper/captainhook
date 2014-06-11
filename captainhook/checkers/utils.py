@@ -43,6 +43,15 @@ class bash(object):
         return self.output.strip().decode(encoding='UTF-8')
 
 
+class bash_no_errors(bash):
+
+    def bash(self, cmd):
+        super(bash_no_errors, self).bash(cmd)
+        if self.err:
+            raise Exception(self.err)
+        return self
+
+
 def get_files(commit_only=True, copy_dest=None):
     "Get copies of files for analysis."
     if commit_only:
