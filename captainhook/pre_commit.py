@@ -96,6 +96,10 @@ def main(commit_only=True):
         for name, mod in checks():
             default = getattr(mod, 'DEFAULT', 'off')
             if hook_checks.is_enabled(name, default=default):
+                if hasattr(mod, 'REQUIRED_FILES'):
+                    for filename in mod.REQUIRED_FILES:
+                        if os.path.isfile(filename):
+                            shutil.copy(filename, TEMP_FOLDER)
                 args = hook_checks.arguments(name)
                 if args:
                     errors = mod.run(files, args)
