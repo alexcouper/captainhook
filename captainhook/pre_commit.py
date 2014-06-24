@@ -98,7 +98,8 @@ def main(commit_only=True):
             if hook_checks.is_enabled(name, default=default):
                 if hasattr(mod, 'REQUIRED_FILES'):
                     for filename in mod.REQUIRED_FILES:
-                        shutil.copy(filename, TEMP_FOLDER)
+                        if os.path.isfile(filename):
+                            shutil.copy(filename, TEMP_FOLDER)
                 args = hook_checks.arguments(name)
                 if args:
                     errors = mod.run(files, args)

@@ -42,10 +42,22 @@ class TestMain(unittest.TestCase):
         self.assertEquals(result, 0)
         self.testmod.run.assert_called_with(['file_one'], 'yep')
 
+    @patch('captainhook.pre_commit.os.path.isfile')
     @patch('captainhook.pre_commit.shutil.copy')
-    def test_required_files(self, copy):
+    def test_required_files(self, copy, isfile):
         self.testmod.REQUIRED_FILES = ['should_be_copied']
+        isfile.return_value = True
 
         pre_commit.main()
 
         copy.assert_called_with('should_be_copied', ANY)
+
+    @patch('captainhook.pre_commit.os.path.isfile')
+    @patch('captainhook.pre_commit.shutil.copy')
+    def test_required_files_only_copied_if_exist(self, copy, isfile):
+        self.testmod.REQUIRED_FILES = ['should_be_copied']
+        isfile.return_value = False
+
+        pre_commit.main()
+
+        self.assertEquals(0, copy.call_count)
