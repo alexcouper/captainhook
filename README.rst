@@ -142,9 +142,16 @@ For example::
 
 This will block all commits if enabled.
 
-A variable ``DEFAULT`` can be specified in the module and will be used to
-determine the check is assumed "on" or "off". This value is only used if
-tox.ini has not been used to override it. By default
+A checker can set the following variables:
+
+DEFAULT: used to determine the check is assumed "on" or "off". This value is
+only used if tox.ini has not been used to override it. The default DEFAULT is
+off.
+
+CHECK_NAME: To override the display name of the module.
+
+REQUIRED_FILES: Files that, if present, should be included in the copy to the
+temp directoy before analysis takes place.
 
 Feedback
 --------

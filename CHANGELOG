@@ -1,3 +1,8 @@
+
+ - Use REQUIRED_FILES for isort.
+ - Add REQUIRED_FILES variable for checkers - allowing them to copy additional
+   files if present.
+
 0.8.4
 =====
 
