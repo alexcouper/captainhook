@@ -1,6 +1,6 @@
 import unittest
 
-from mock import Mock, patch
+from mock import ANY, Mock, patch
 
 from captainhook import pre_commit
 
@@ -17,7 +17,7 @@ class TestMain(unittest.TestCase):
         self.HookConfig().is_enabled.return_value = True
         self.HookConfig().arguments.return_value = ''
 
-        self.testmod = Mock()
+        self.testmod = Mock(spec=['run'])
         self.testmod.run.return_value = None
         self.checks_patch = patch('captainhook.pre_commit.checks')
         checks = self.checks_patch.start()
@@ -41,3 +41,11 @@ class TestMain(unittest.TestCase):
 
         self.assertEquals(result, 0)
         self.testmod.run.assert_called_with(['file_one'], 'yep')
+
+    @patch('captainhook.pre_commit.shutil.copy')
+    def test_required_files(self, copy):
+        self.testmod.REQUIRED_FILES = ['should_be_copied']
+
+        pre_commit.main()
+
+        copy.assert_called_with('should_be_copied', ANY)
