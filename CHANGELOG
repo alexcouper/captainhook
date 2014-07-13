@@ -1,4 +1,5 @@
 
+ - Add block_branches checker to prevent commits to eg. master.
  - Use REQUIRED_FILES for isort.
  - Add REQUIRED_FILES variable for checkers - allowing them to copy additional
    files if present.

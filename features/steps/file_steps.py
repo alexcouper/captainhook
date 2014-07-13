@@ -12,3 +12,9 @@ def step_pdb_set_trace(context, file_name):
 def step_print_statement(context, file_name):
     with open(file_name, 'w') as f:
         f.write("print 'x'\n")
+
+
+@when('I create a file called "{file_name}" containing some valid code')
+def step_create_valid_python_file(context, file_name):
+    with open(file_name, 'w') as f:
+        f.write("fred = 1\n")
