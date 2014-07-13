@@ -48,6 +48,7 @@ eg::
     flake8=off
     pdb=off
     python3=on
+    block_branch=on;master
 
 
 flake8, pdb and python3 checks default to being on.
@@ -92,6 +93,9 @@ Currently supported checks are
     verbatim.
 
   * Currently you can only specify a single grep command.
+
+- block_branch: Checks if the current branch is in a list of branches that
+  should not be committed to.
 
 Output
 ------
