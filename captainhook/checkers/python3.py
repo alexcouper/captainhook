@@ -6,7 +6,7 @@ from .utils import bash, filter_python_files
 DEFAULT = 'on'
 
 
-def run(files):
+def run(files, temp_folder):
     "Check to see if python files are py3 compatible"
     errors = []
     for py_file in filter_python_files(files):

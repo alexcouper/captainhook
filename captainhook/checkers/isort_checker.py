@@ -10,7 +10,7 @@ NO_ISORT_MSG = ("isort is required for the flake8 plugin.\n"
 REQUIRED_FILES = ['.editorconfig', '.isort.cfg', 'setup.cfg']
 
 
-def run(files):
+def run(files, temp_folder):
     "Check flake8 errors in the code base."
     try:
         import isort  # NOQA
