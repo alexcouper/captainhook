@@ -97,6 +97,9 @@ Currently supported checks are
 - block_branch: Checks if the current branch is in a list of branches that
   should not be committed to.
 
+- merge_marks: Checks if there are any signs of unresolved merge marks in the
+  files to be committed.
+
 Output
 ------
 
