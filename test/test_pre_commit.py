@@ -23,16 +23,24 @@ class TestMain(unittest.TestCase):
         checks = self.checks_patch.start()
         checks.return_value = [("testmod", self.testmod)]
 
+        self.mkdtemp_patch = patch('captainhook.pre_commit.tempfile.mkdtemp')
+        self.mkdtemp_patch.start().return_value = '/tmp/dir'
+
+        self.shutil_rm_patch = patch('captainhook.pre_commit.shutil.rmtree')
+        self.shutil_rm_patch.start()
+
     def tearDown(self):
         self.checks_patch.stop()
         self.hook_config_patch.stop()
         self.get_files_patch.stop()
+        self.mkdtemp_patch.stop()
+        self.shutil_rm_patch.stop()
 
     def test_calling_run_without_args(self):
         result = pre_commit.main()
 
         self.assertEquals(result, 0)
-        self.testmod.run.assert_called_with(['file_one'])
+        self.testmod.run.assert_called_with(['file_one'], '/tmp/dir')
 
     def test_calling_run_with_args(self):
         self.HookConfig().arguments.return_value = 'yep'
@@ -40,7 +48,7 @@ class TestMain(unittest.TestCase):
         result = pre_commit.main()
 
         self.assertEquals(result, 0)
-        self.testmod.run.assert_called_with(['file_one'], 'yep')
+        self.testmod.run.assert_called_with(['file_one'], '/tmp/dir', 'yep')
 
     @patch('captainhook.pre_commit.os.path.isfile')
     @patch('captainhook.pre_commit.shutil.copy')

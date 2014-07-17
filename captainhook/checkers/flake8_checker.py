@@ -28,7 +28,7 @@ def redirected(out=sys.stdout, err=sys.stderr):
         sys.stdout, sys.stderr = saved
 
 
-def run(files):
+def run(files, temp_folder):
     "Check flake8 errors in the code base."
     try:
         import flake8  # NOQA

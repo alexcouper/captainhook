@@ -8,7 +8,7 @@ from .utils import bash
 CHECK_NAME = 'block_branch'
 
 
-def run(files, arg=None):
+def run(files, temp_folder, arg=None):
     "Check we're not committing to a blocked branch"
     parser = get_parser()
     args = parser.parse_args(arg.split())

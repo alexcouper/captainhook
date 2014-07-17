@@ -11,7 +11,7 @@ def grep(args, files):
     return bash('grep -n -H --exclude=tox.ini {} {}'.format(args, files))
 
 
-def run(files, arg=None):
+def run(files, temp_folder, arg=None):
     if arg is None:
         return NO_ARG_MESSAGE
     files = ' '.join(files)

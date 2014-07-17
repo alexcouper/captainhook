@@ -102,12 +102,13 @@ def main(commit_only=True):
                             shutil.copy(filename, TEMP_FOLDER)
                 args = hook_checks.arguments(name)
                 if args:
-                    errors = mod.run(files, args)
+                    errors = mod.run(files, TEMP_FOLDER, args)
                 else:
-                    errors = mod.run(files)
+                    errors = mod.run(files, TEMP_FOLDER)
                 if errors:
                     title_print("Checking {0}".format(name))
                     print((errors.replace(TEMP_FOLDER + "/", '')))
+                    print("")
                     exit_code = 1
 
     if exit_code == 1:
