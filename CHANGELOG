@@ -1,4 +1,7 @@
 
+0.8.5
+=====
+
  - Add checker for merge marks.
  - Add block_branches checker to prevent commits to eg. master.
  - Use REQUIRED_FILES for isort.
