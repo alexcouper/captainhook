@@ -1,11 +1,15 @@
 from behave import given, then, when
-from captainhook.checkers.utils import bash, bash_no_errors
 from nose.tools import assert_equal, assert_not_equal
+
+from captainhook.checkers.utils import bash, bash_no_errors
 
 
 @given('that I am in a git repository')
 def git_init(context):
     bash_no_errors('git init')
+    # Travis needs this:
+    bash_no_errors('git config user.email "you@example.com"')
+    bash_no_errors('git config user.name "Your Name"')
 
 
 @when('I git add "{file_name}"')
