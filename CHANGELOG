@@ -1,5 +1,5 @@
 
-
+ - fixed bug when captainhook section is missing.
  - flake8 now obeys tox.ini files in the root of the directory.
 
 0.8.5

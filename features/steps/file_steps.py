@@ -31,6 +31,4 @@ def step_impl(context, excludes):
     with open('tox.ini', 'w') as f:
         f.write('[flake8]\n')
         f.write("exclude={0}\n".format(excludes))
-        f.write('[captainhook]\n')
-
-# TODO: Add test for tox.ini with no captainhook section
+        # f.write('[captainhook]\n')

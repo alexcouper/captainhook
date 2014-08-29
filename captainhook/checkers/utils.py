@@ -123,9 +123,12 @@ class HookConfig(object):
     @property
     def config(self):
         if not self._config and os.path.exists(self.config_filename):
-            c = configparser.ConfigParser()
+            c = configparser.SafeConfigParser()
             c.readfp(self.get_file())
-            self._config = dict(c.items('captainhook'))
+            try:
+                self._config = dict(c.items('captainhook'))
+            except configparser.NoSectionError:
+                pass
         return self._config
 
     def is_enabled(self, plugin, default='off'):
