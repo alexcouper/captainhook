@@ -14,7 +14,7 @@ def run(files, temp_folder, arg=None):
     args = parser.parse_args(arg.split())
 
     current_branch = bash('git symbolic-ref HEAD').output
-    current_branch = current_branch.replace('refs/heads/', '').strip()
+    current_branch = current_branch.replace(b'refs/heads/', b'').strip()
     if current_branch in args.branches:
         return ("Branch '{0}' is blocked from being "
                 "committed to.".format(current_branch))

@@ -31,6 +31,16 @@ def redirected(out=sys.stdout, err=sys.stderr):
         sys.stdout, sys.stderr = saved
 
 
+@contextmanager
+def change_folder(folder):
+    old_dir = os.curdir
+    os.chdir(folder)
+    try:
+        yield
+    finally:
+        os.chdir(old_dir)
+
+
 def run(files, temp_folder):
     "Check flake8 errors in the code base."
     try:
@@ -44,11 +54,9 @@ def run(files, temp_folder):
         return
     DEFAULT_CONFIG = join(temp_folder, 'tox.ini')
 
-    old_dir = os.curdir
-    os.chdir(temp_folder)
-    flake8_style = get_style_guide(config_file=DEFAULT_CONFIG)
-    out, err = StringIO(), StringIO()
-    with redirected(out, err):
-        flake8_style.check_files(py_files)
-    os.chdir(old_dir)
+    with change_folder(temp_folder):
+        flake8_style = get_style_guide(config_file=DEFAULT_CONFIG)
+        out, err = StringIO(), StringIO()
+        with redirected(out, err):
+            flake8_style.check_files(py_files)
     return out.getvalue().strip()
