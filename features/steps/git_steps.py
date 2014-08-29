@@ -1,7 +1,6 @@
 from behave import given, then, when
-from nose.tools import assert_not_equal
-
 from captainhook.checkers.utils import bash, bash_no_errors
+from nose.tools import assert_equal, assert_not_equal
 
 
 @given('that I am in a git repository')
@@ -22,3 +21,8 @@ def commit(context):
 @then('there are uncommitted changes')
 def uncommitted_changes(context):
     assert_not_equal('', bash_no_errors('git status -s').output)
+
+
+@then('there are no uncommitted changes')
+def no_uncommitted_changes(context):
+    assert_equal(b'', bash_no_errors('git status -s').output)
