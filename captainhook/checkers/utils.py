@@ -89,7 +89,7 @@ def create_fake_copies(files, destination):
             filename=filename,
             dest_file=dest_file)
         )
-        dest_files.append(dest_file)
+        dest_files.append(os.path.realpath(dest_file))
     return dest_files
 
 

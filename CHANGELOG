@@ -1,4 +1,10 @@
 
+
+ - flake8 now obeys tox.ini files in the root of the directory.
+
+0.8.5
+=====
+
  - Add checker for merge marks.
  - Add block_branches checker to prevent commits to eg. master.
  - Use REQUIRED_FILES for isort.
