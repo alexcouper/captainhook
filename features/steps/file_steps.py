@@ -26,7 +26,7 @@ def step_create_valid_python_file(context, file_name, contents, directory):
             raise Exception("Unrecognised contents: {0}".format(contents))
 
 
-@given(u'I have a flake8 section inside my tox.ini that excludes "{0}"')
+@given(u'I have a flake8 section inside my tox.ini that excludes "{excludes}"')
 def step_impl(context, excludes):
     with open('tox.ini', 'w') as f:
         f.write('[flake8]\n')
