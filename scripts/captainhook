@@ -20,6 +20,10 @@ from os.path import exists, join
 
 import captainhook
 
+if sys.version_info < (2, 7):
+    print("captainhook is only compatible with python2.7 and above.")
+    sys.exit(1)
+
 package_location = os.path.dirname(captainhook.__file__)
 
 
