@@ -20,6 +20,7 @@ setup(
         'docopt==0.6.1',
         'flake8',
         'isort',
+        'bash',
     ],
     packages=find_packages(),
     classifiers=[

@@ -1,3 +1,4 @@
 docopt==0.6.1
 flake8
 isort
+bash

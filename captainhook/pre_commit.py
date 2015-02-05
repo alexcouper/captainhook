@@ -99,12 +99,19 @@ def main(commit_only=True):
                 if hasattr(mod, 'REQUIRED_FILES'):
                     for filename in mod.REQUIRED_FILES:
                         if os.path.isfile(filename):
-                            shutil.copy(filename, TEMP_FOLDER)
+                            try:
+                                shutil.copy(filename, TEMP_FOLDER)
+                            except shutil.Error:
+                                # Copied over by a previous check
+                                continue
                 args = hook_checks.arguments(name)
+
+                tmp_files = [os.path.join(TEMP_FOLDER, f) for f in files]
+
                 if args:
-                    errors = mod.run(files, TEMP_FOLDER, args)
+                    errors = mod.run(tmp_files, TEMP_FOLDER, args)
                 else:
-                    errors = mod.run(files, TEMP_FOLDER)
+                    errors = mod.run(tmp_files, TEMP_FOLDER)
                 if errors:
                     title_print("Checking {0}".format(name))
                     print((errors.replace(TEMP_FOLDER + "/", '')))

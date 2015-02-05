@@ -40,7 +40,7 @@ class TestMain(unittest.TestCase):
         result = pre_commit.main()
 
         self.assertEquals(result, 0)
-        self.testmod.run.assert_called_with(['file_one'], '/tmp/dir')
+        self.testmod.run.assert_called_with(['/tmp/dir/file_one'], '/tmp/dir')
 
     def test_calling_run_with_args(self):
         self.HookConfig().arguments.return_value = 'yep'
@@ -48,7 +48,9 @@ class TestMain(unittest.TestCase):
         result = pre_commit.main()
 
         self.assertEquals(result, 0)
-        self.testmod.run.assert_called_with(['file_one'], '/tmp/dir', 'yep')
+        self.testmod.run.assert_called_with(
+            ['/tmp/dir/file_one'], '/tmp/dir', 'yep'
+        )
 
     @patch('captainhook.pre_commit.os.path.isfile')
     @patch('captainhook.pre_commit.shutil.copy')
