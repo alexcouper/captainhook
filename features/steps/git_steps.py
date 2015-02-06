@@ -29,4 +29,4 @@ def uncommitted_changes(context):
 
 @then('there are no uncommitted changes')
 def no_uncommitted_changes(context):
-    assert_equal(b'', bash_no_errors('git status -s').value())
+    assert_equal('', bash_no_errors('git status -s').value())
