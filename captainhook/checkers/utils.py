@@ -8,47 +8,16 @@ except ImportError:
     import configparser
 
 import os.path
-from subprocess import PIPE, Popen
 
-
-class bash(object):
-    "This is lower class because it is intended to be used as a method."
-
-    def __init__(self, cmd):
-        """
-        TODO: Release this as a separate library!
-        """
-        self.p = None
-        self.output = None
-        self.bash(cmd)
-
-    def bash(self, cmd):
-        self.p = Popen(cmd, shell=True, stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        self.output, self.err = self.p.communicate(input=self.output)
-        return self
-
-    def __unicode__(self):
-        return self.value()
-
-    def __str__(self):
-        return self.value()
-
-    def __nonzero__(self):
-        return self.__bool__()
-
-    def __bool__(self):
-        return bool(self.value())
-
-    def value(self):
-        return self.output.strip().decode(encoding='UTF-8')
+from bash import bash
 
 
 class bash_no_errors(bash):
 
     def bash(self, cmd):
         super(bash_no_errors, self).bash(cmd)
-        if self.err:
-            raise Exception(self.err)
+        if self.stderr:
+            raise Exception(self.stderr)
         return self
 
 
@@ -60,14 +29,14 @@ def get_files(commit_only=True, copy_dest=None):
             "grep -v -E '^D' | "
             "awk '{ print ( $(NF) ) }' "
         ).value().strip()
-
-        if real_files:
-            return create_fake_copies(real_files.split('\n'), copy_dest)
-        return []
     else:
-        return bash(
+        real_files = bash(
             "git ls-tree --name-only --full-tree -r HEAD"
-        ).value().split('\n')
+        ).value().strip()
+
+    if real_files:
+        return create_fake_copies(real_files.split('\n'), copy_dest)
+    return []
 
 
 def create_fake_copies(files, destination):
@@ -93,13 +62,14 @@ def create_fake_copies(files, destination):
     return dest_files
 
 
-def filter_python_files(files=None):
+def filter_python_files(files):
     "Get all python files from the list of files."
     py_files = []
     for f in files:
         # If we end in .py, or if we don't have an extension and file says that
         # we are a python script, then add us to the list
         extension = os.path.splitext(f)[-1]
+
         if extension:
             if extension == '.py':
                 py_files.append(f)
