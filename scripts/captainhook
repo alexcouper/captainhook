@@ -62,7 +62,7 @@ def install_checkers(git_location):
     """
     dest_checker_folder = join(git_location, 'hooks', 'checkers')
     if not exists(dest_checker_folder):
-        os.mkdir(dest_checker_folder)
+        os.makedirs(dest_checker_folder)
 
     # Remove all captain hook scripts so that we can be sure
     # any renames of captainhook scripts are OK.
