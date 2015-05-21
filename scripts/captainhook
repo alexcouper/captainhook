@@ -119,6 +119,13 @@ def install_pre_commit_hook(git_location, use_virtualenv=False):
         os.system(cmd)
 
 
+def makedir_git_hooks(git_location):
+    "Make sure `hooks` directory exists inside the git location"
+    hooks_folder = join(git_location, 'hooks')
+    if not exists(hooks_folder):
+        os.mkdir(hooks_folder)
+
+
 def get_repo_version(git_location):
     "Get the git-installed version of captainhook"
     checker_constructor = join(
@@ -149,6 +156,7 @@ if __name__ == '__main__':
 
     if arguments['install']:
         print("Installing {0}".format(captainhook.VERSION))
+        makedir_git_hooks(git_location)
         install_pre_commit_hook(git_location,
                                 arguments['--use-virtualenv-python'])
         install_checkers(git_location)
