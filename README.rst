@@ -1,3 +1,10 @@
+.. image:: https://travis-ci.org/alexcouper/captainhook.svg?branch=master
+    :target: https://travis-ci.org/alexcouper/captainhook
+.. image:: http://img.shields.io/pypi/v/captainhook.svg
+    :target: https://pypi.python.org/pypi/captainhook/
+.. image:: https://img.shields.io/pypi/pyversions/captainhook.svg
+    :target: https://pypi.python.org/pypi/captainhook/
+
 captainhook
 ===========
 
@@ -71,34 +78,40 @@ To avoid being checked at all, you can commit using the ``--no-verify`` flag::
     git commit -a --no-verify
 
 
-
 Checks
 ------
 
 Currently supported checks are
 
-- pdb: Checks to see if there are any uncommented
-  ``import pdb; pdb.set_trace()`` statements in the code to be committed.
+- block_branch: A branch blacklist; will reject commits if the active branch is
+  in the list.
 
-- flake8: Runs flake8 against the files that are set to be committed.
+- flake8: Runs flake8_ on staged files (checks for `PEP 8`_ compliance and
+  syntax errors).
 
-- python3: Checks to see if python files set to be committed are python3
-  compatible.
+- frosted: Runs frosted_ on staged files (checks for Python syntax errors).
 
-- isort: Checks to see if all import statements have been sorted correctly.
+- ``grep``: Runs a single ``grep`` command on staged files, rejecting the
+  commit if the value being searched is found. Options are passed to ``grep``
+  verbatim. Only one ``grep`` command may be specified.
 
-- grep: Runs the given grep command against the files in your commit.
+- isort: Runs isort_ on staged files (checks for clean Python imports according
+  to `PEP 8`_ and `PEP 328`_.
 
-  * Takes a single argument; options which will be passed through to grep
-    verbatim.
+- merge_marks: Rejects the commit if there are any unresolved merge marks in
+  staged files.
 
-  * Currently you can only specify a single grep command.
+- pdb: Rejects the commit if there are any uncommented ``import pdb;
+  pdb.set_trace()`` statements in staged files.
 
-- block_branch: Checks if the current branch is in a list of branches that
-  should not be committed to.
+- python3: Rejects the commit if staged files are not Python 3 compatible.
+  Expects ``python3`` and ``2to3-2.7`` to be in the current shell ``PATH``.
 
-- merge_marks: Checks if there are any signs of unresolved merge marks in the
-  files to be committed.
+  .. _flake8: https://pypi.python.org/pypi/flake8
+  .. _frosted: https://pypi.python.org/pypi/frosted
+  .. _isort: https://pypi.python.org/pypi/isort
+  .. _`PEP 8`: https://www.python.org/dev/peps/pep-0008/
+  .. _`PEP 328`: https://www.python.org/dev/peps/pep-0328/
 
 Output
 ------
