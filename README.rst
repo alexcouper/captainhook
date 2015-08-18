@@ -96,7 +96,7 @@ Currently supported checks are
   verbatim. Only one ``grep`` command may be specified.
 
 - isort: Runs isort_ on staged files (checks for clean Python imports according
-  to `PEP 8`_ and `PEP 328`_.
+  to `PEP 8`_ and `PEP 328`_).
 
 - merge_marks: Rejects the commit if there are any unresolved merge marks in
   staged files.
