@@ -1,7 +1,7 @@
+
 # # # # # # # # # # # # # #
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
-import re
 from .utils import bash, filter_python_files
 
 
