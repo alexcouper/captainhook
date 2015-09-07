@@ -89,6 +89,12 @@ Currently supported checks are
 - flake8: Runs flake8_ on staged files (checks for `PEP 8`_ compliance and
   syntax errors).
 
+- pylint: Runs pylint_ on staged files. You can specify level of threshold
+  in tox.ini as number from 0 to 10.
+
+- pylint_docstrings: Runs pylint_ to check only docstrings on staged files.
+  You can specify level of threshold in tox.ini as number from 0 to 10.
+
 - frosted: Runs frosted_ on staged files (checks for Python syntax errors).
 
 - ``grep``: Runs a single ``grep`` command on staged files, rejecting the
@@ -108,6 +114,7 @@ Currently supported checks are
   Expects ``python3`` and ``2to3-2.7`` to be in the current shell ``PATH``.
 
   .. _flake8: https://pypi.python.org/pypi/flake8
+  .. _pylint: http://www.pylint.org/
   .. _frosted: https://pypi.python.org/pypi/frosted
   .. _isort: https://pypi.python.org/pypi/isort
   .. _`PEP 8`: https://www.python.org/dev/peps/pep-0008/
