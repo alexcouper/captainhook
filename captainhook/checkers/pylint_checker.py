@@ -13,7 +13,7 @@ SCORE = 85.0
 
 
 def run(files, temp_folder, arg=None):
-    "Check docstring coverage of the code base."
+    "Check coding convention of the code base."
     try:
         import pylint
     except ImportError:
