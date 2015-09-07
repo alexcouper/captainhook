@@ -29,7 +29,6 @@ def run(files, temp_folder, arg=None):
     str_py_files = " ".join(py_files)
     cmd = "pylint {0} | grep rated".format(str_py_files)
     output = bash(cmd).value().decode('utf-8')
-    output = output.split()
 
     if 'rated' not in output:
         return False
