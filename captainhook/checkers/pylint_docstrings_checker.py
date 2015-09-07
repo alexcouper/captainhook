@@ -27,7 +27,7 @@ def run(files, temp_folder, arg=None):
         return False
 
     str_py_files = " ".join(py_files)
-    cmd = "pylint -d all -e missing-docstring {0} | grep rated".format(str_py_files)
+    cmd = "pylint -d all -e missing-docstring {0}".format(str_py_files)
     output = bash(cmd).value().decode('utf-8')
 
     if 'rated' not in output:
