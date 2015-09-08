@@ -7,8 +7,10 @@ from .utils import bash, filter_python_files
 
 DEFAULT = 'off'
 CHECK_NAME = 'pylint'
-NO_PYLINT_MSG = ("pylint is required for the pylint plugin.\n"
-                "`pip install pylint` or turn it off in your tox.ini file.")
+NO_PYLINT_MSG = ("pylint is required for the {0} plugin.\n"
+                "`pip install pylint` or turn it off in your tox.ini file.".format(CHECK_NAME))
+PYLINT_CMD = 'pylint'
+PYLINT_TARGET = 'code'
 SCORE = 85.0
 
 
@@ -27,7 +29,7 @@ def run(files, temp_folder, arg=None):
         return False
 
     str_py_files = " ".join(py_files)
-    cmd = "pylint {0}".format(str_py_files)
+    cmd = "{0} {1}".format(PYLINT_CMD, str_py_files)
     output = bash(cmd).value().decode('utf-8')
 
     if 'rated' not in output:
@@ -35,6 +37,6 @@ def run(files, temp_folder, arg=None):
     score = float(re.search("(\d.\d\d)/10", output).group(1))
     if score >= float(arg):
         return False
-    return ("Pylint appreciated your code as {0},"
-        "required threshold is {1}".format(score, arg)
+    return ("Pylint appreciated your {0} as {1},"
+        "required threshold is {2}".format(PYLINT_TARGET, score, arg)
         )
