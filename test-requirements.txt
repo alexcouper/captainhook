@@ -1,3 +1,4 @@
 behave
 nose
 mock
+pylint
