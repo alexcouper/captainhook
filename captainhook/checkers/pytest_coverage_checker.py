@@ -22,7 +22,7 @@ def run(files, temp_folder, arg=None):
         return NO_PYTEST_MSG
 
     cmd = "pip show pytest-cov"
-    if not bash(cmd).value().decode('utf-8'):
+    if not bash(cmd).value():
         return NO_PYTEST_COV_MSG
 
 
@@ -30,7 +30,7 @@ def run(files, temp_folder, arg=None):
     arg = arg or SCORE
 
     cmd = "py.test -q --cov"
-    output = bash(cmd).value().decode('utf-8')
+    output = bash(cmd).value()
     output = output.rstrip().splitlines()
 
     score = float(re.search("(\d?\d?\d)%", output[-2]).group(1))

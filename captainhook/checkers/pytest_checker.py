@@ -19,7 +19,7 @@ def run(files, temp_folder, arg=None):
         return NO_PYTEST_MSG
 
     cmd = "py.test -q"
-    output = bash(cmd).value().decode('utf-8')
+    output = bash(cmd).value()
     output = output.rstrip().splitlines()
 
     if 'error' in output[-1] or 'failed' in output[-1]:
