@@ -33,7 +33,10 @@ def run(files, temp_folder, arg=None):
     output = bash(cmd).value()
     output = output.rstrip().splitlines()
 
-    score = float(re.search("(\d?\d?\d)%", output[-2]).group(1))
+    try:
+        score = float(re.search("(\d?\d?\d)%", output[-2]).group(1))
+    except:
+        return "\n".join(output)
     if score >= float(arg):
         return False
     return ("Pytest-cov appreciated your tests as {0},"
