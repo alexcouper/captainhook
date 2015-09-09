@@ -36,7 +36,9 @@ def run(files, temp_folder, arg=None):
     try:
         score = float(re.search("(\d?\d?\d)%", output[-2]).group(1))
     except:
-        return "\n".join(output)
+        return "\n".join(("Something wrong with 'pytest -q --cov .' :",
+                "\n".join(output),
+                "Check it or disable 'pytest-cov' in your tox.ini"))
     if score >= float(arg):
         return False
     return ("Pytest-cov appreciated your tests as {0},"
