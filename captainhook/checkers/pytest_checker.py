@@ -18,7 +18,7 @@ def run(files, temp_folder, arg=None):
     except ImportError:
         return NO_PYTEST_MSG
 
-    cmd = "py.test -q"
+    cmd = "py.test -q ."
     output = bash(cmd).value()
     output = output.rstrip().splitlines()
 

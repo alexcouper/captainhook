@@ -29,7 +29,7 @@ def run(files, temp_folder, arg=None):
     # set default level of threshold
     arg = arg or SCORE
 
-    cmd = "py.test -q --cov"
+    cmd = "py.test -q --cov ."
     output = bash(cmd).value()
     output = output.rstrip().splitlines()
 
