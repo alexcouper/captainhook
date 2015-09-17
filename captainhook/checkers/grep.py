@@ -1,14 +1,14 @@
 # # # # # # # # # # # # # #
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
-from .utils import bash
+from .utils import bash, get_config_file
 
 DEFAULT = 'off'
 NO_ARG_MESSAGE = 'You must specify an argument to the grep checker.'
 
 
 def grep(args, files):
-    return bash('grep -n -H --exclude=tox.ini {} {}'.format(args, files))
+    return bash('grep -n -H --exclude={} {} {}'.format(get_config_file(), args, files))
 
 
 def run(files, temp_folder, arg=None):

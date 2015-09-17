@@ -6,7 +6,7 @@ import sys
 from contextlib import contextmanager
 from os.path import join
 
-from .utils import filter_python_files
+from .utils import filter_python_files, get_config_file
 
 try:
     from StringIO import StringIO
@@ -17,8 +17,8 @@ except ImportError:
 DEFAULT = 'on'
 CHECK_NAME = 'flake8'
 NO_FLAKE_MSG = ("flake8 is required for the flake8 plugin.\n"
-                "`pip install flake8` or turn it off in your tox.ini file.")
-REQUIRED_FILES = ['tox.ini']
+                "`pip install flake8` or turn it off in your {} file.".format(get_config_file()))
+REQUIRED_FILES = [get_config_file()]
 
 
 @contextmanager
@@ -52,7 +52,7 @@ def run(files, temp_folder):
     py_files = filter_python_files(files)
     if not py_files:
         return
-    DEFAULT_CONFIG = join(temp_folder, 'tox.ini')
+    DEFAULT_CONFIG = join(temp_folder, get_config_file())
 
     with change_folder(temp_folder):
         flake8_style = get_style_guide(config_file=DEFAULT_CONFIG)

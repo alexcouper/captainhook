@@ -40,7 +40,7 @@ You can perform a run against all your code base using::
 
 ## Setting Up
 
-To turn a check on or off, create a ``tox.ini`` file
+To turn a check on or off, create a ``tox.ini`` or ``setup.cfg`` file (``tox.ini`` is used for all further examples)
 in the base directory of your project with a ``captainhook`` section.
 
 eg::

@@ -2,13 +2,13 @@
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
 import re
-from .utils import bash, filter_python_files
+from .utils import bash, filter_python_files, get_config_file
 
 
 DEFAULT = 'off'
 CHECK_NAME = 'pylint'
 NO_PYLINT_MSG = ("pylint is required for the {0} plugin.\n"
-                "`pip install pylint` or turn it off in your tox.ini file.".format(CHECK_NAME))
+                "`pip install pylint` or turn it off in your {1} file.".format(CHECK_NAME, get_config_file()))
 PYLINT_CMD = 'pylint'
 PYLINT_TARGET = 'code'
 SCORE = 85.0
