@@ -5,13 +5,11 @@
 .. image:: https://img.shields.io/pypi/pyversions/captainhook.svg
     :target: https://pypi.python.org/pypi/captainhook/
 
-captainhook
-===========
+#captainhook
 
 Git hook scripts
 
-What is it
-----------
+## What is it
 
 A set of configurable git hooks and checks.
 
@@ -21,8 +19,7 @@ files to be committed and rejects the commit if any of the checks turned on fail
 .. image:: http://f.cl.ly/items/3H0a1q2b090q2s2N3N2m/demo2.gif
     :alt: Demo
 
-Installation
-------------
+## Installation
 
 Install using pip::
 
@@ -34,16 +31,14 @@ You can then install the hooks using::
 
 from within any git repo, and the pre-commit hook will be installed.
 
-Running without commiting
--------------------------
+## Running without commiting
 
 You can perform a run against all your code base using::
 
     captainhook run
 
 
-Setting Up
-----------
+## Setting Up
 
 To turn a check on or off, create a ``tox.ini`` file
 in the base directory of your project with a ``captainhook`` section.
@@ -78,8 +73,7 @@ To avoid being checked at all, you can commit using the ``--no-verify`` flag::
     git commit -a --no-verify
 
 
-Checks
-------
+## Checks
 
 Currently supported checks are
 
@@ -120,8 +114,7 @@ Currently supported checks are
   .. _`PEP 8`: https://www.python.org/dev/peps/pep-0008/
   .. _`PEP 328`: https://www.python.org/dev/peps/pep-0328/
 
-Output
-------
+## Output
 
 You only see output for checks that fail, otherwise silence.
 
@@ -150,8 +143,7 @@ Example output upon a rejected commit::
     ===============================================================================
 
 
-Extending
----------
+## Extending
 
 You can add your own check to your git env quite easily.
 
@@ -180,8 +172,7 @@ CHECK_NAME: To override the display name of the module.
 REQUIRED_FILES: Files that, if present, should be included in the copy to the
 temp directoy before analysis takes place.
 
-Feedback
---------
+## Feedback
 
 I'm interested in hearing feedback - positive or negative - about this.
 
@@ -189,8 +180,7 @@ Please make yourself at home, create issues if you've got problems with existing
 
 You can reach me on twitter @couperalex.
 
-Developing
-----------
+# Contributing
 
 Running pre-commit.py on its own will by default create copies of the files to
 be committed which you probably don't want when testing a new check.
@@ -198,3 +188,21 @@ be committed which you probably don't want when testing a new check.
 You can run the script against all your code base using::
 
     python captainhook/pre_commit.py --all
+
+
+## Testing
+
+There are behavioural feature tests (based on ``behave``) found in the features
+directory.
+
+New checks should be accompanied by a corresponding behavioural test example.
+
+To run the behavioural tests:
+
+$ behave
+
+To run all other tests:
+
+$ nosetests
+
+Ensure that you've installed test-requirements.txt.

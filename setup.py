@@ -2,7 +2,7 @@
 # # coding: utf-8
 from setuptools import find_packages, setup
 
-long_description = open('README.rst').read()
+long_description = open('README.md').read()
 
 setup(
     name='captainhook',
