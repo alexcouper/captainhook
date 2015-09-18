@@ -3,3 +3,4 @@ nose
 mock
 pytest
 pytest-cov
+pylint
