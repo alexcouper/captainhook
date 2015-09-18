@@ -1,9 +1,5 @@
-.. image:: https://travis-ci.org/alexcouper/captainhook.svg?branch=master
-    :target: https://travis-ci.org/alexcouper/captainhook
-.. image:: http://img.shields.io/pypi/v/captainhook.svg
-    :target: https://pypi.python.org/pypi/captainhook/
-.. image:: https://img.shields.io/pypi/pyversions/captainhook.svg
-    :target: https://pypi.python.org/pypi/captainhook/
+[![Build Status](https://travis-ci.org/alexcouper/captainhook.svg?branch=master)](https://travis-ci.org/alexcouper/captainhook)
+
 
 #captainhook
 
