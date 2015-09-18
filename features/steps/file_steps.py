@@ -23,7 +23,7 @@ def step_create_valid_python_file(context, file_name, contents, directory):
         elif contents == 'a line over 80 chars':
             f.write('Fred = "{0}"'.format('a' * 82))
         else:
-            raise Exception("Unrecognised contents: {0}".format(contents))
+            f.write(contents)
 
 
 @given('I have a flake8 section inside my tox.ini that excludes "{excludes}"')

@@ -7,8 +7,10 @@ Feature: pytest-cov obeys tox
 
 
     Scenario: When a pytest-cov is present in tox.ini it should be obeyed.
-       When I create a file in "." called "test_one.py" containing a line over 80 chars
-        And I git add "test_one.py"
+       When I create a file in "." called "test_foo.py" containing def test(): assert 1 == 1
+        And I create a file in "." called "foo.py" containing import os; print os.listdir('.')
+        And I git add "foo.py"
+        And I git add "test_foo.py"
         And I git add "tox.ini"
         And I attempt to commit
         Then I see an error
