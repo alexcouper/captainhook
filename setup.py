@@ -19,7 +19,7 @@ setup(
     install_requires=[
         'docopt==0.6.1',
         'flake8',
-        'isort',
+        'isort>=4.1.1',
         'bash',
     ],
     packages=find_packages(),
