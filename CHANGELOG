@@ -1,4 +1,4 @@
-
+ - forced isort to be at least 4.1.1 to disable output.
  - added ``frosted`` check
  - made non-compatibility with python<2.7 explicit.
  - fixed a bug with blocked branches on py3.
