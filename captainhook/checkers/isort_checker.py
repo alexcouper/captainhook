@@ -1,12 +1,12 @@
 # # # # # # # # # # # # # #
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
-from .utils import bash, filter_python_files
+from .utils import bash, filter_python_files, get_config_file
 
 DEFAULT = 'off'
 CHECK_NAME = 'isort'
 NO_ISORT_MSG = ("isort is required for the isort plugin.\n"
-                "`pip install isort` or turn it off in your tox.ini file.")
+                "`pip install isort` or turn it off in your {} file.".format(get_config_file()))
 REQUIRED_FILES = ['.editorconfig', '.isort.cfg', 'setup.cfg']
 
 

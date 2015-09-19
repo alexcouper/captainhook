@@ -21,6 +21,16 @@ class bash_no_errors(bash):
         return self
 
 
+def get_config_file():
+    if os.path.isfile('tox.ini'):
+        return 'tox.ini'
+    if os.path.isfile('setup.cfg'):
+        return 'setup.cfg'
+    else:
+        # should never reach here
+        return 'tox.ini'
+
+
 def get_files(commit_only=True, copy_dest=None):
     "Get copies of files for analysis."
     if commit_only:

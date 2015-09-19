@@ -5,7 +5,7 @@
 """
 A pre commit hook for git.
 
-This will look at the [githooks] section of tox.ini file to see which checks
+This will look at the [githooks] section of tox.ini or setup.cfg file to see which checks
 you would like to run.
 
 To add a new check:
@@ -13,7 +13,7 @@ To add a new check:
     1. Create a function that returns a true like, printable object for
        failure, or ``None`` for success.
     2. Add that function to ``captainhook.checkers.ALL_CHECKS``.
-    3. Add a corresponding line (the name of the function) to your tox.ini file
+    3. Add a corresponding line (the name of the function) to your tox.ini or setup.cfg file
        with 'on' (run this check) or 'off' (don't). The default behaviour is to
        run all checks defined in ``ALL_CHECKS``.
 """
@@ -34,7 +34,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(path)
 
 import checkers
-from checkers.utils import get_files, HookConfig
+from checkers.utils import get_files, HookConfig, get_config_file
 
 
 def checks():
@@ -91,7 +91,7 @@ def main(commit_only=True):
     """
     global TEMP_FOLDER
     exit_code = 0
-    hook_checks = HookConfig('tox.ini')
+    hook_checks = HookConfig(get_config_file())
     with files_to_check(commit_only) as files:
         for name, mod in checks():
             default = getattr(mod, 'DEFAULT', 'off')
