@@ -1,14 +1,14 @@
 # # # # # # # # # # # # # #
 # CAPTAINHOOK IDENTIFIER  #
 # # # # # # # # # # # # # #
-from .utils import bash, filter_python_files
+from .utils import bash, filter_python_files, get_config_file
 
 DEFAULT = 'off'
 CHECK_NAME = 'frosted'
 NO_FROSTED_MSG = (
     "frosted is required for the frosted plugin.\n"
-    "`pip install frosted` or turn it off in your tox.ini file.")
-REQUIRED_FILES = ['tox.ini']
+    "`pip install frosted` or turn it off in your {} file.".format(get_config_file()))
+REQUIRED_FILES = [get_config_file()]
 
 
 def run(files, temp_folder):

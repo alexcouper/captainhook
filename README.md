@@ -12,8 +12,7 @@ A set of configurable git hooks and checks.
 Upon committing code, the pre-commit hook runs configured checks against the
 files to be committed and rejects the commit if any of the checks turned on fail.
 
-.. image:: http://f.cl.ly/items/3H0a1q2b090q2s2N3N2m/demo2.gif
-    :alt: Demo
+![Demo](http://f.cl.ly/items/3H0a1q2b090q2s2N3N2m/demo2.gif)
 
 ## Installation
 
@@ -36,7 +35,7 @@ You can perform a run against all your code base using::
 
 ## Setting Up
 
-To turn a check on or off, create a ``tox.ini`` file
+To turn a check on or off, create a ``tox.ini`` or ``setup.cfg`` file (``tox.ini`` is used for all further examples)
 in the base directory of your project with a ``captainhook`` section.
 
 eg::
@@ -76,28 +75,35 @@ Currently supported checks are
 - block_branch: A branch blacklist; will reject commits if the active branch is
   in the list.
 
-- flake8: Runs flake8_ on staged files (checks for `PEP 8`_ compliance and
-  syntax errors).
+- [flake8](https://pypi.python.org/pypi/flake8): 
+  Runs flake8_ on staged files (checks for [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+  compliance and syntax errors).
 
-- pytest: Runs pytest_ in repository directory.
+- [pytest](http://pytest.org/latest/):
+  Runs pytest_ in repository directory.
 
-- pytest-cov: Runs pytest-cov_ in repository directory.
+- [pytest-cov](https://pypi.python.org/pypi/pytest-cov):
+  Runs pytest-cov_ in repository directory.
   You can specify level of threshold in tox.ini as number from 0 to 100.
 
-- pylint: Runs pylint_ on staged files. You can specify level of threshold
+- [pylint](http://www.pylint.org/):
+  Runs pylint_ on staged files. You can specify level of threshold
   in tox.ini as number from 0 to 10.
 
 - pylint_docstrings: Runs pylint_ to check only docstrings on staged files.
   You can specify level of threshold in tox.ini as number from 0 to 10.
 
-- frosted: Runs frosted_ on staged files (checks for Python syntax errors).
+- [frosted](https://pypi.python.org/pypi/frosted): 
+  Runs frosted_ on staged files (checks for Python syntax errors).
 
 - ``grep``: Runs a single ``grep`` command on staged files, rejecting the
   commit if the value being searched is found. Options are passed to ``grep``
   verbatim. Only one ``grep`` command may be specified.
 
-- isort: Runs isort_ on staged files (checks for clean Python imports according
-  to `PEP 8`_ and `PEP 328`_).
+- [isort](https://pypi.python.org/pypi/isort):
+  Runs isort_ on staged files (checks for clean Python imports according
+  to [PEP 8](https://www.python.org/dev/peps/pep-0008/) and 
+  [PEP 328](https://www.python.org/dev/peps/pep-0328/)).
 
 - merge_marks: Rejects the commit if there are any unresolved merge marks in
   staged files.
@@ -107,15 +113,6 @@ Currently supported checks are
 
 - python3: Rejects the commit if staged files are not Python 3 compatible.
   Expects ``python3`` and ``2to3-2.7`` to be in the current shell ``PATH``.
-
-  .. _flake8: https://pypi.python.org/pypi/flake8
-  .. _pytest: http://pytest.org/latest/
-  .. _pytest-cov: https://pypi.python.org/pypi/pytest-cov
-  .. _pylint: http://www.pylint.org/
-  .. _frosted: https://pypi.python.org/pypi/frosted
-  .. _isort: https://pypi.python.org/pypi/isort
-  .. _`PEP 8`: https://www.python.org/dev/peps/pep-0008/
-  .. _`PEP 328`: https://www.python.org/dev/peps/pep-0328/
 
 ## Output
 
@@ -202,10 +199,10 @@ New checks should be accompanied by a corresponding behavioural test example.
 
 To run the behavioural tests:
 
-$ behave
+    $ behave
 
 To run all other tests:
 
-$ nosetests
+    $ nosetests
 
 Ensure that you've installed test-requirements.txt.
