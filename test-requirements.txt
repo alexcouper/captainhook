@@ -1,4 +1,6 @@
 behave
 nose
 mock
+pytest
+pytest-cov
 pylint

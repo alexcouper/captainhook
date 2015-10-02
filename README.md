@@ -79,6 +79,13 @@ Currently supported checks are
   Runs flake8_ on staged files (checks for [PEP 8](https://www.python.org/dev/peps/pep-0008/)
   compliance and syntax errors).
 
+- [pytest](http://pytest.org/latest/):
+  Runs pytest_ in repository directory.
+
+- [pytest-cov](https://pypi.python.org/pypi/pytest-cov):
+  Runs pytest-cov_ in repository directory.
+  You can specify level of threshold in tox.ini as number from 0 to 100.
+
 - [pylint](http://www.pylint.org/):
   Runs pylint_ on staged files. You can specify level of threshold
   in tox.ini as number from 0 to 10.
