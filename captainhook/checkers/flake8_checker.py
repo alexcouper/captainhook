@@ -47,7 +47,11 @@ def run(files, temp_folder):
         import flake8  # NOQA
     except ImportError:
         return NO_FLAKE_MSG
-    from flake8.engine import get_style_guide
+    try:
+        from flake8.engine import get_style_guide
+    except ImportError:
+        # We're on a new version of flake8
+        from flake8.api.legacy import get_style_guide
 
     py_files = filter_python_files(files)
     if not py_files:
