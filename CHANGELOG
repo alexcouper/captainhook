@@ -1,3 +1,10 @@
+0.8.7
+=====
+
+ - Replace sed usage with more pythonic cross-platform approach for installing
+   using a virtualenv
+ - Fixes for flake8 version 3
+
 0.8.6
 =====
 
