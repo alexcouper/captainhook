@@ -17,7 +17,8 @@ except ImportError:
 DEFAULT = 'on'
 CHECK_NAME = 'flake8'
 NO_FLAKE_MSG = ("flake8 is required for the flake8 plugin.\n"
-                "`pip install flake8` or turn it off in your {} file.".format(get_config_file()))
+                "`pip install flake8` or turn it off in your {} "
+                "file.".format(get_config_file()))
 REQUIRED_FILES = [get_config_file()]
 
 
@@ -63,4 +64,4 @@ def run(files, temp_folder):
         out, err = StringIO(), StringIO()
         with redirected(out, err):
             flake8_style.check_files(py_files)
-    return out.getvalue().strip()
+    return out.getvalue().strip() + err.getvalue().strip()
