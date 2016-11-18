@@ -114,9 +114,12 @@ def install_pre_commit_hook(git_location, use_virtualenv=False):
     os.system('chmod +x {0}'.format(pre_commit_destination))
     if use_virtualenv:
         print("Configuring pre-commit hook to use virtualenv")
-        cmd = 'sed -i '' "1 s,^.*$,#!{}," {}'.format(sys.executable,
-                                                     pre_commit_destination)
-        os.system(cmd)
+        with open(pre_commit_destination, "r+") as pre_commit_file:
+            content = pre_commit_file.readlines()
+            content[0] = "#!{}\n".format(sys.executable)
+            pre_commit_file.seek(0)
+            pre_commit_file.write("".join(content))
+            pre_commit_file.truncate()
 
 
 def makedir_git_hooks(git_location):
