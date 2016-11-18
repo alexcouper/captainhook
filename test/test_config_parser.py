@@ -45,3 +45,14 @@ class TestHookConfig(unittest.TestCase):
 
         self.assertEquals('--show-source', h.arguments('flake8'))
         self.assertTrue(h.is_enabled('flake8'))
+
+    def test_extra_arguments_2(self):
+        h = HookConfig('tox.ini')
+        conf = ("[captainhook]\n"
+                "pylint:on;0\n"
+                "flake8:off"
+                )
+        h.get_file = lambda: io.StringIO(conf)
+
+        self.assertEquals('0', h.arguments('pylint'))
+        self.assertFalse(h.is_enabled('flake8'))
